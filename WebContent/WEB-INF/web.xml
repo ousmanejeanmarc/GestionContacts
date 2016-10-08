@@ -18,7 +18,7 @@
     <description></description>
     <display-name>newContact</display-name>
     <servlet-name>newContact</servlet-name>
-    <servlet-class>domain.newContact</servlet-class>
+    <servlet-class>servlets.newContact</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>newContact</servlet-name>

@@ -9,24 +9,53 @@
 <body>
 
  <form method="post" action="newContact">
- 	<table  >
+ 	<table align ="center" >
  		<tr>
-				<th><h2>Création d'un nouveau contact</h2></th>
+				<th colspan="2"><h2 align="center">Ajouter un nouveau contact</h2></th>
 		</tr>
-		<tr>
-				<td><i>FirstName: <input type="text" name="firstName" size="25"> </i></td>
+		<tr align="center">
+				<td align="right"><i>FirstName: <input type="text" name="firstName" size="25"> </i></td>
 		</tr>
-		<tr>
-				<td><i>LastName: <input type="text" name="lastName" size="25"> </i></td>
+		<tr align="center">
+				<td align="right"><i>LastName: <input type="text" name="lastName" size="25"> </i></td>
 		</tr>
-		<tr>
-				<td><i>Email: <input type="text" name="email" size="25"> </i></td>
+		<tr align="center">
+				<td align="right"><i>Email: <input type="text" name="email" size="25"> </i></td>
 		</tr>
-		<tr>
-				<td><i>Id: <input type="text" name="id" size="25"> </i></td>
+		
+		<th><h2>Adresse</h2></th>
+		
+		<tr align="center">
+				<td align="right"><i>Street: <input type="text" name="street" size="25"> </i></td>
 		</tr>
-		<tr> 
-				</br><td>	<input class="button" type ="submit" value="Submit"/>
+		<tr align="center">
+				<td align="right"><i>City: <input type="text" name="city" size="25"> </i></td>
+		</tr>
+		
+		<tr align="center">
+				<td align="right"><i>Zip: <input type="text" name="zip" size="25"> </i></td>
+		</tr>
+		<tr align="center">
+				<td align="right"><i>Country: <input type=text name="country" size="25"> </i></td>
+		</tr>
+
+		
+				<th><h2>PhoneNumber</h2></th>
+		
+		<tr align="center">
+				<td align="right"><i>Phone Kind: <input type="text" name="phoneKind" size="25"> </i></td>
+		</tr>
+		<tr align="center">
+				<td align="right"><i>Phone Number: <input type="text" name="phoneNumber" size="25"> </i></td>
+		</tr>					
+		
+						<th><h2>Group</h2></th>
+		
+		<tr align="center">
+				<td align="right"><i>Group Name: <input type="text" name="group" size="25"> </i></td>
+		</tr>
+		<tr align="center">
+				</br><td align="right">	<input class="button" type ="submit" value="Submit"/>
 					    <input class="button" type ="reset" value="Reset"/>
 			    </td>
 				

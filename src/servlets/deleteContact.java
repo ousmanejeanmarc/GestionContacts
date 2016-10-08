@@ -39,7 +39,7 @@ public class deleteContact extends HttpServlet {
 		
 		//creation de l'instance de DAOContact et appel de sa methode addContact
 		DAOContact  daoc=new DAOContact();
-		daoc.deleteContact(id);
+		//daoc.deleteContact(id);
 		
 	}
 
