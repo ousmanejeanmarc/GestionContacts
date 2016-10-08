@@ -19,6 +19,7 @@ public class DAOAdress implements IDAOAddress{
 			DAOContact.session.save(address);
 			transaction.commit();	
 			addrId=(Address)DAOContact.session.load(Address.class, address.getId());
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
