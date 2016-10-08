@@ -33,6 +33,6 @@
          <mapping resource="services/Contact.hbm.xml"/>
          <mapping resource="services/Address.hbm.xml"/>
          <mapping resource="services/PhoneNumber.hbm.xml"/>
-         <mapping resource="services/ContactGroup.hbm.xml ok"/>
+         <mapping resource="services/ContactGroup.hbm.xml nok"/>
     </session-factory>
 </hibernate-configuration>
