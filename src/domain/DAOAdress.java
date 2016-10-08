@@ -13,7 +13,6 @@ public class DAOAdress implements IDAOAddress{
 		// TODO Auto-generated method stub
 		
 		Address addrId=null;
-		//Session session=null;
 		try {
 			//session=HibernateUtil.getSessionFactory().getCurrentSession();
 			Transaction transaction=DAOContact.session.beginTransaction();
