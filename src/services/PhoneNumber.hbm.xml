@@ -13,8 +13,12 @@
 	 </property>
 	 
 	 <property name="phoneNumber">
-	 <column name="PHONENUMBER"/>
-	 </property>	 
+	 	<column name="PHONENUMBER"/>
+	 </property>
+	 	
+	<many-to-one name="contact" class="Contact" column="idContact" />
+	
+	
+
    </class>
-   
   </hibernate-mapping>

@@ -10,6 +10,18 @@
 
  <form method="post" action="newContact">
  	<table align ="center" >
+ 
+ 	<div align="center">
+ 			<input id="contact" type="radio" name="choice" value="Contact" size="25" checked>Contact 
+ 		    <input id="entreprise" type="radio" name="choice" value="Entreprise" size="25">Entreprise<br>
+ 	</div>
+
+ 		<tr>
+				<th colspan="2"><h2 align="center">Entreprise</h2></th>
+		</tr>
+		<tr align="center">
+				<td align="right"><i>Numero Siret: <input type="long" name="numSiret" size="25"> </i></td>
+		</tr>
  		<tr>
 				<th colspan="2"><h2 align="center">Ajouter un nouveau contact</h2></th>
 		</tr>

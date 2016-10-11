@@ -8,26 +8,35 @@ import entities.ContactGroup;
 
 public class ContactGroupService implements IContactGroupService{
 	
-	public boolean createContactGroup(String groupName) {
+	public ContactGroup createContactGroup(String groupName) {
 		// TODO Auto-generated method stub
 		boolean isCreated=false;
+		ContactGroup createdGroup=null;
 		
 		ContactGroup groupe=new ContactGroup();
 		
 		groupe.setGroupName(groupName);
 				
 		//appel du DAO
-		IDAOContactGroup daoGroup=new DAOContactGroup();
+		//IDAOContactGroup daoGroup=new DAOContactGroup();
 		
-		//creation de l'addresse
-		long createdGroup=daoGroup.createGroup(groupe);
-		if(createdGroup!= -1){
-			isCreated=true;
-		}
 		
-		return isCreated;
+		//createdGroup=daoGroup.createGroup(groupe);
+		
+		//return createdGroup;
+		return groupe;
 	}
 	
+	public boolean save (ContactGroup group){
+		
+		
+		//appel du DAO
+		IDAOContactGroup daoGroup=new DAOContactGroup();
+		ContactGroup createdGroup = daoGroup.createGroup(group);
+		if(createdGroup!=null){
+			return true;
+		}return false;
+	}
 	
 	
 

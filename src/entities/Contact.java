@@ -1,41 +1,26 @@
 package entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Contact {
-	
-	
-	
-	public Contact(long idaddr) {
-		super();
-		
-	}
+
 	private String firstName;
 	private String lastName;
 	private String email;
 	private long idContact;
-	private  Address idAddress;
-		
+	private Address  address;
+	private Set<PhoneNumber> phoneNumbers=new HashSet<PhoneNumber>();
+	private Set<ContactGroup>group=new HashSet<ContactGroup>(); 
 
-
-	
-
-	public Address getIdAddress() {
-		return idAddress;
-	}
-
-	public void setIdAddress(Address idAddress) {
-		this.idAddress = idAddress;
-	}
-
-	public Contact() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	public Contact() {super();}
 	
 	public Contact(String firstName, String lastName, String email) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;	
+		
 	}
 	
 	public String getFirstName() {return firstName;}
@@ -45,8 +30,34 @@ public class Contact {
 	public String getEmail() {return email;}	
 	public void setEmail(String email) {this.email = email;}
 	public long getId() {return idContact;}
-	public void setId(long id) {this.idContact = id;}	
+	public void setId(long id) {this.idContact = id;}
+	public Set<PhoneNumber> getPhoneNumber() {return phoneNumbers;}
+	public void setPhoneNumber(Set<PhoneNumber> phoneNumber) {
+		phoneNumber=new HashSet<PhoneNumber>();
+		this.phoneNumbers = phoneNumber;
+	}
+	public Address getAddress() {return address;}
+	public void setAddress(Address address) {this.address = address;}
+
+	/**
+	 * @return the group
+	 */
+	public Set<ContactGroup> getGroup() {
+		return group;
+	}
 	
+
+	/**
+	 * @param group the group to set
+	 */
+	public void setGroup(Set<ContactGroup> group) {
+		this.group = group;
+	}
+	public void addGroup(Set<ContactGroup> grp)
+	{
+		
+			this.group.addAll(grp);
 	
+	}
 
 }

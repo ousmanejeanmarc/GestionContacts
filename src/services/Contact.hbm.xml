@@ -18,9 +18,30 @@
 	 <property name="email">
 	 	<column name="EMAIL"/>
 	 </property>
-	 
-	 <many-to-one name ="idAddress" column="idAddress" unique="true" not-null="false"/>
-	 
+
+	 <!-- plusieurs contact peuvent avoir la même adresse -->
+	 <many-to-one name="address" column="address" class="Address" not-null="false"/>
+	
+	<!-- un contact peut avoir plusieur phone--> 
+	<set name="phoneNumber" inverse="true" >
+		<key column="idContact"/>
+		<one-to-many class="PhoneNumber"/>
+	</set>
+	
+	
+    
+    <!--un contact peut être dans plusieurs group -->
+    
+    <set name="group" table="GROUPE" cascade="all">
+    	<key column="idContact"/>
+    	<many-to-many class="ContactGroup" column="idContactGroup"/>
+    </set>
+    
+    <!-- HERITAGE -->
+    <joined-subclass name="Entreprise" table="ENTREPRISE">
+    	<key column="id"/>
+    	<property name= "NumSiret" column="NumSiret" />
+    </joined-subclass>
   </class>
   
 </hibernate-mapping>

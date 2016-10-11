@@ -1,31 +1,34 @@
 package entities;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ContactGroup {
+	
+	Set<Contact>contacts=new HashSet<Contact>();
+	private String groupName;
+	private long idContactGroup;
 	
 	
 	public ContactGroup() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ContactGroup(ArrayList<Contact> contacts, String groupName,
+	public ContactGroup( String groupName,
 			long idContactGroup) {
 		super();
-		this.contacts = contacts;
 		this.groupName = groupName;
 		this.idContactGroup = idContactGroup;
+		
 	}
-	ArrayList<Contact>contacts;
-	private String groupName;
-	private long idContactGroup;
 	
 	
 	
-	public ArrayList<Contact> getContacts() {
+	
+	public Set<Contact> getContacts() {
 		return contacts;
 	}
-	public void setContacts(ArrayList<Contact> contacts) {
+	public void setContacts(Set<Contact> contacts) {
 		this.contacts = contacts;
 	}
 	public String getGroupName() {
@@ -39,6 +42,11 @@ public class ContactGroup {
 	}
 	public void setIdContactGroup(long idContactGroup) {
 		this.idContactGroup = idContactGroup;
+	}
+	
+	public void addContact(Set<Contact> ct){
+		
+		this.contacts.addAll(ct);
 	}
 
 }

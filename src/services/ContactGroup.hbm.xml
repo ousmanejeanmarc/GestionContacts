@@ -10,8 +10,16 @@
   	 </id>
 	 <property name="groupName">
 	 	<column name="GROUPNAME"/>
-	 </property>	 
+	 </property>
+	 
+	<!-- un group contient plusieurs contact -->
+	<set name="contacts" table="GROUPE" inverse="true" cascade="all">
+  		<key column="idContactGroup"/>
+  		<many-to-many class="Contact" column="idContact"/>
+  	</set> 
   </class>
+  
+  
   
 </hibernate-mapping>
 

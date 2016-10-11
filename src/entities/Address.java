@@ -25,16 +25,6 @@ public class Address {
 	}
 
 
-	public long getId() {
-		return idAddress;
-	}
-
-
-	public void setId(long id) {
-		this.idAddress = id;
-	}
-
-
 	public String getStreet() {
 		return Street;
 	}
@@ -72,6 +62,16 @@ public class Address {
 
 	public void setCountry(String country) {
 		Country = country;
+	}
+
+
+	public long getId() {
+		return idAddress;
+	}
+
+
+	public void setId(long idAddress) {
+		this.idAddress = idAddress;
 	}
 	
 	

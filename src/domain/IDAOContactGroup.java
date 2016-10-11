@@ -4,6 +4,6 @@ import entities.ContactGroup;
 
 public interface IDAOContactGroup {
 
-	long createGroup(ContactGroup groupe);
+	ContactGroup createGroup(ContactGroup groupe);
 
 }

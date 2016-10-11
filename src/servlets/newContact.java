@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entities.Address;
+import entities.Contact;
+import entities.ContactGroup;
+import entities.Entreprise;
+import entities.PhoneNumber;
 import services.AddressService;
 import services.ContactGroupService;
 import services.ContactService;
@@ -42,6 +48,7 @@ public class newContact extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
@@ -51,6 +58,11 @@ public class newContact extends HttpServlet {
 		String firstName=request.getParameter("firstName");
 		String lastName=request.getParameter("lastName");
 		String email=request.getParameter("email");
+		//numero siret de l'entreprise7
+		long numSiret=Long.parseLong(request.getParameter("numSiret"));
+		
+		String choice=request.getParameter("choice");
+		System.out.println("le choix est :"+choice);
 		
 		//Address
 		String street=request.getParameter("street");
@@ -75,30 +87,35 @@ public class newContact extends HttpServlet {
 				
 				
 				//ajout d'une adress d'un contact
-				Address idAdressCreated=addresseService.createAddressContact(street, city, zip, country);
-			  
-			    
-			    //ajout du phone number
-			    boolean isPhoneNumberCreated=phoneService.creatContactPhoneNumber(phoneKind, phoneNumber);
-			    //ajout du groupe
-			    boolean isGroupCreated = groupService.createContactGroup(group);
-			   
-			    //ajout du contact
-				boolean isContactCreated=contactService.createContact(firstName, lastName, email,idAdressCreated);
+				Address address= addresseService.createAddressContact(street, city, zip, country);	
 				
-			    //System.out.println("contact: "+isContactCreated+"addr: "+isAdressCreated+"phone: "+isPhoneNumberCreated);
-			    if(isContactCreated &&  isPhoneNumberCreated && isGroupCreated){
-					response.setContentType("text/html");
-					message="Le contact:"+firstName+" "+lastName+" "+", a bien été enregistré";
-					request.setAttribute("Message", message);
-					RequestDispatcher rd=request.getRequestDispatcher("accueil.jsp");
-					rd.forward(request, response);
-				}else {
-					message="Un problème est survenu lors de la création du conact";
-					request.setAttribute("Message", message);
-					RequestDispatcher rd=request.getRequestDispatcher("Error.jsp");
-					rd.forward(request, response);
+				//ajout du groupe
+			    ContactGroup GroupCreated = groupService.createContactGroup(group);
+			    
+			    //ajout du contact
+			    Contact contactCreated=null;
+			    Entreprise entrepriseCreated=null;
+			   
+			    if(choice.equals("Contact")){
+					contactCreated= contactService.createContact(firstName, lastName, email,address);
+					contactService.bindContactGroupe(contactCreated, GroupCreated);
+					contactService.saveContact(contactCreated);
+				}else if(choice.equals("Entreprise")){
+			    //ajout d'une entreprise
+					entrepriseCreated= contactService.createEntreprise(firstName, lastName, email,address,numSiret);
+					contactService.bindContactGroupe(entrepriseCreated, GroupCreated);
+					contactService.saveEntreprise(entrepriseCreated);
 				}
+			  	    
+				//sauvegarde en base des contacts et groupe
+				groupService.save(GroupCreated);
+				
+				
+				
+			    //ajout du phone number
+			    PhoneNumber PhoneNumber= phoneService.creatContactPhoneNumber(phoneKind, phoneNumber,contactCreated);
+			   	
+			  
 				
 		}else {
 			message="Les champs ne doivent pas être vides";
@@ -107,21 +124,7 @@ public class newContact extends HttpServlet {
 			rd.forward(request, response);
 		}
 		
-		
-		//creation de l'instance de DAOContact et appel de sa methode addContact
-			
-		
-		
-		//je vines fnbiene*psrzpgn
-		
-		
-		
-		
-		//ajout du num de telephone
-		//daoPhoneNumer.addContactPhoneNumber(phoneKind, phoneNumber);*/
-		
-		
-		
+				
 	}
-
+	
 }

@@ -1,5 +1,8 @@
 package services;
 
+import entities.ContactGroup;
+
 public interface IContactGroupService {
-	public boolean createContactGroup(String groupName);
+	public ContactGroup createContactGroup(String groupName);
+	public boolean save (ContactGroup group);
 }

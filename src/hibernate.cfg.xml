@@ -34,5 +34,6 @@
          <mapping resource="services/Address.hbm.xml"/>
          <mapping resource="services/PhoneNumber.hbm.xml"/>
          <mapping resource="services/ContactGroup.hbm.xml"/>
+         <!--<mapping resource="services/Entreprise.hbm.xml"/>-->
     </session-factory>
 </hibernate-configuration>

@@ -7,31 +7,40 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import entities.Contact;
+import entities.Entreprise;
 import util.HibernateUtil;
 
 public class DAOContact implements IDAOContact{
 	
-		public static Session session;
-
+		
 	
 	public Contact createContact(Contact contact) {
 		// TODO Auto-generated method stub
-		Contact createdContact=null;
 	
-		
 		try {
-			session=HibernateUtil.getSessionFactory().openSession();
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 			Transaction transaction=session.beginTransaction();
 			session.save(contact);
 			transaction.commit();
-			createdContact=(Contact) session.load(Contact.class, contact.getId());
-			
+						
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
-		}
-		
-		return createdContact;
+		}	
+		return contact;
+	}
+	public Entreprise createEntreprise(Entreprise entrp){
+		try {
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+			Transaction transaction=session.beginTransaction();
+			session.saveOrUpdate(entrp);
+			transaction.commit();
+						
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}	
+		return entrp;
 	}
 
 	

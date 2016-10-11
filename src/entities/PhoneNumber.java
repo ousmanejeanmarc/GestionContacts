@@ -5,12 +5,14 @@ public class PhoneNumber {
 	private long idPhoneNumber;
 	private String phoneKind;
 	private String phoneNumber;
+	private Contact contact;
 	
 	
-	public PhoneNumber(String phoneKind, String phoneNumber) {
+	public PhoneNumber(String phoneKind, String phoneNumber,Contact contact) {
 		super();
 		this.phoneKind = phoneKind;
 		this.phoneNumber = phoneNumber;
+		this.contact=contact;
 	}
 	
 	public PhoneNumber() {
@@ -35,6 +37,20 @@ public class PhoneNumber {
 	}
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+
+	/**
+	 * @return the contact
+	 */
+	public Contact getContact() {
+		return contact;
+	}
+
+	/**
+	 * @param contact the contact to set
+	 */
+	public void setContact(Contact contact) {
+		this.contact = contact;
 	}
 
 

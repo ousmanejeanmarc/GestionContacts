@@ -1,7 +1,10 @@
 package services;
 
+import entities.Contact;
+import entities.PhoneNumber;
+
 public interface IPhoneNumberService {
 	
-	public boolean creatContactPhoneNumber(String phoneKind, String phoneNumber);
+	public PhoneNumber creatContactPhoneNumber(String phoneKind, String phoneNumber,Contact contact);
 	
 }
