@@ -12,7 +12,7 @@ public class Contact {
 	private Address  address;
 	private Set<PhoneNumber> phoneNumbers=new HashSet<PhoneNumber>();
 	private Set<ContactGroup>group=new HashSet<ContactGroup>(); 
-
+	private int version;
 	public Contact() {super();}
 	
 	public Contact(String firstName, String lastName, String email) {

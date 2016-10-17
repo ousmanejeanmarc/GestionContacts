@@ -9,11 +9,11 @@
 <body>
 	<center>
 	 
-	   </br> <a href="addContact.jsp">Creer un nouveau contact </a></br></br>
+	    <a href="addContact.jsp">Creer un nouveau contact </a></br></br>
 	    <a href="removeContact.jsp">Supprimer un contact </a></br></br>
 	    <a href="updateContact.jsp">Modifier un contact </a></br></br>
-	    <a href="searchContact.jsp">Rechercher un contact </a></br>
-    </frameset>
+	    <a href="searchContact.jsp">Rechercher </a></br>
+
     </center>
     
 </body>

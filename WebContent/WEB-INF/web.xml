@@ -34,4 +34,14 @@
     <servlet-name>deleteContact</servlet-name>
     <url-pattern>/deleteContact</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>searcheContact</display-name>
+    <servlet-name>searcheContact</servlet-name>
+    <servlet-class>servlets.searcheContact</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>searcheContact</servlet-name>
+    <url-pattern>/searcheContact</url-pattern>
+  </servlet-mapping>
 </web-app>

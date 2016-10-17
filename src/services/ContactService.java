@@ -1,7 +1,9 @@
 package services;
 
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import domain.DAOContact;
@@ -10,6 +12,7 @@ import entities.Address;
 import entities.Contact;
 import entities.ContactGroup;
 import entities.Entreprise;
+import entities.PhoneNumber;
 
 public class ContactService implements IContactService{
 	
@@ -90,4 +93,34 @@ public boolean saveEntreprise(Entreprise entrp){
 		 cont.addGroup(group);
 		 grp.addContact(ct);
 	}
+	/**
+	 * search contact by firstname only
+	 */
+	public ArrayList<Contact> searchContact(String firstName) {
+		// TODO Auto-generated method stub
+		DAOContact searchConact=new DAOContact();
+		return searchConact.searchContactByFirstName(firstName);
+	}
+	
+	/**
+	 * search contact by first last email
+	 */
+	public List<Contact> searchContactBy(String firstName,String lastName,String email,String city,
+			String street,String country,String zip) {
+		// TODO Auto-generated method stub
+		DAOContact searchConact=new DAOContact();
+		//return searchConact.searchContactBy(firstName,lastName,email,city,street,country,zip);
+		return searchConact.searchContactBy(firstName,lastName,email,city,street,country,zip);
+	}
+	
+	
+	public ArrayList<Contact> searchContact(String firstName, String lastName,
+			String email, Address addr, PhoneNumber phone, ContactGroup group) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	
+	
 }

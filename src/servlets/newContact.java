@@ -58,8 +58,7 @@ public class newContact extends HttpServlet {
 		String firstName=request.getParameter("firstName");
 		String lastName=request.getParameter("lastName");
 		String email=request.getParameter("email");
-		//numero siret de l'entreprise7
-		long numSiret=Long.parseLong(request.getParameter("numSiret"));
+	
 		
 		String choice=request.getParameter("choice");
 		System.out.println("le choix est :"+choice);
@@ -97,11 +96,15 @@ public class newContact extends HttpServlet {
 			    Entreprise entrepriseCreated=null;
 			   
 			    if(choice.equals("Contact")){
+			    	System.out.println("contact");
 					contactCreated= contactService.createContact(firstName, lastName, email,address);
 					contactService.bindContactGroupe(contactCreated, GroupCreated);
 					contactService.saveContact(contactCreated);
 				}else if(choice.equals("Entreprise")){
 			    //ajout d'une entreprise
+					System.out.println("entreprise");
+					//numero siret de l'entreprise7
+					long numSiret=Long.parseLong(request.getParameter("numSiret"));
 					entrepriseCreated= contactService.createEntreprise(firstName, lastName, email,address,numSiret);
 					contactService.bindContactGroupe(entrepriseCreated, GroupCreated);
 					contactService.saveEntreprise(entrepriseCreated);
@@ -115,6 +118,8 @@ public class newContact extends HttpServlet {
 			    //ajout du phone number
 			    PhoneNumber PhoneNumber= phoneService.creatContactPhoneNumber(phoneKind, phoneNumber,contactCreated);
 			   	
+			    RequestDispatcher rd=request.getRequestDispatcher("accueil.jsp");
+				rd.forward(request, response);
 			  
 				
 		}else {

@@ -2,10 +2,14 @@ package services;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import entities.Address;
 import entities.Contact;
 import entities.ContactGroup;
 import entities.Entreprise;
+import entities.PhoneNumber;
 
 public interface IContactService {
 
@@ -15,4 +19,9 @@ public interface IContactService {
 	public boolean saveEntreprise(Entreprise entrp);
 	public void bindContactGroupe(Contact cont,ContactGroup grp);
 	public Address getAdd();
+	public ArrayList<Contact>searchContact(String firstName);
+	public List<Contact>searchContactBy(String firstName,String lastName,String email,
+			String city,String street, String country,String zip
+			);//String phoneNumber
+	public ArrayList<Contact>searchContact(String firstName,String lastName,String email,Address addr,PhoneNumber phone,ContactGroup group);
 }

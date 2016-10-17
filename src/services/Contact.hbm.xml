@@ -8,6 +8,7 @@
   	 <id name="id" type="long" column="idContact" >
    		<generator class="increment"/>
   	 </id>
+  	 <version name="version" access="field" column="VERSION"/>
 	 <property name="firstName">
 	 	<column name="FIRSTNAME"/>
 	 </property>
@@ -20,7 +21,7 @@
 	 </property>
 
 	 <!-- plusieurs contact peuvent avoir la même adresse -->
-	 <many-to-one name="address" column="address" class="Address" not-null="false"/>
+	 <many-to-one name="address" column="address" class="Address" not-null="false" optimistic-lock="false"/>
 	
 	<!-- un contact peut avoir plusieur phone--> 
 	<set name="phoneNumber" inverse="true" >
