@@ -15,7 +15,8 @@ public interface IDAOContact {
 	public Contact updateContact(Contact contact);
 	
 	public ArrayList<Contact>searchContactByFirstName(String firstName);
-	public List<Entreprise>searchContactByEntreprise(String firstName,String lastName,String email,
-			String city,String street, String country, String zip,long numSiret);
+	
+	public List<Contact> searchContactByEntreprise(String firstName,String lastName,String email,
+			String city,String street, String country, String zip,long numSiret,String phone);	
 
 }

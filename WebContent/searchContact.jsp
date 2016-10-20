@@ -69,6 +69,7 @@
 			for(int i=0;i<result.size();i++){
 				out.print("<tr><td>");
 						out.print(result.get(i).getFirstName());
+						//out.print(result.get(i).getNumSiret());
 				out.print("</td><td>");
 						out.print(result.get(i).getLastName());
 				out.print("</td><td>");
@@ -79,6 +80,10 @@
 							+result.get(i).getAddress().getCity()
 							
 							);
+					out.print("</td><td>");
+					out.print(result.get(i).getPhoneNumber().toString());
+					out.print("</td><td>");
+					out.print(result.get(i).getGroup().toString());
 				out.print("</td></tr>");
 			}
 		}else {

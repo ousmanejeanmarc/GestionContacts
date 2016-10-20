@@ -12,6 +12,7 @@ import entities.Address;
 import entities.Contact;
 import entities.ContactGroup;
 import entities.Entreprise;
+import entities.GROUPNAME;
 import entities.PhoneNumber;
 
 public class ContactService implements IContactService{
@@ -43,6 +44,19 @@ public class ContactService implements IContactService{
 		ent.setAddress(idAddress);
 		ent.setNumSiret(numSiret);
 		return ent;
+	}
+	
+	/**
+	 * ousmane 
+	 * @param cont
+	 * @param grp
+	 */
+	public void bindContactGroupe(Contact cont,ContactGroup grp){
+	
+	
+		 cont.addGroup(grp);
+		 grp.addContact(cont);
+		 
 	}
 	/**
 	 * 
@@ -77,22 +91,7 @@ public boolean saveEntreprise(Entreprise entrp){
 	}
 	
 	
-	/**
-	 * ousmane 
-	 * @param cont
-	 * @param grp
-	 */
-	public void bindContactGroupe(Contact cont,ContactGroup grp){
 	
-		 Set<ContactGroup> group=new HashSet<ContactGroup>();
-		 Set<Contact> ct=new HashSet<Contact>();
-		 
-		 ct.add(cont);
-		 group.add(grp);
-		 
-		 cont.addGroup(group);
-		 grp.addContact(ct);
-	}
 	/**
 	 * search contact by firstname only
 	 */
@@ -106,11 +105,11 @@ public boolean saveEntreprise(Entreprise entrp){
 	 * search contact by first last email
 	 */
 	public List<Contact> searchContactBy(String firstName,String lastName,String email,String city,
-			String street,String country,String zip) {
+			String street,String country,String zip, long numSiret,String phone) {
 		// TODO Auto-generated method stub
 		DAOContact searchConact=new DAOContact();
 		//return searchConact.searchContactBy(firstName,lastName,email,city,street,country,zip);
-		return searchConact.searchContactBy(firstName,lastName,email,city,street,country,zip);
+		return searchConact.searchContactByEntreprise(firstName,lastName,email,city,street,country,zip,numSiret,phone);
 	}
 	
 	
@@ -119,6 +118,14 @@ public boolean saveEntreprise(Entreprise entrp){
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public List<Contact> searchContactBy(String firstName, String lastName,
+			String email, String city, String street, String country, String zip) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	
 	
 	
 	

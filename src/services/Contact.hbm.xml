@@ -8,7 +8,9 @@
   	 <id name="id" type="long" column="idContact" >
    		<generator class="increment"/>
   	 </id>
+  	 
   	 <version name="version" access="field" column="VERSION"/>
+  	 
 	 <property name="firstName">
 	 	<column name="FIRSTNAME"/>
 	 </property>
@@ -23,17 +25,17 @@
 	 <!-- plusieurs contact peuvent avoir la même adresse -->
 	 <many-to-one name="address" column="address" class="Address" not-null="false" optimistic-lock="false"/>
 	
-	<!-- un contact peut avoir plusieur phone--> 
+	<!-- un contact peut avoir plusieur phone-->
 	<set name="phoneNumber" inverse="true" >
 		<key column="idContact"/>
 		<one-to-many class="PhoneNumber"/>
 	</set>
-	
+	 
 	
     
     <!--un contact peut être dans plusieurs group -->
     
-    <set name="group" table="GROUPE" cascade="all">
+    <set name="group" table="GROUPE" cascade="save-update,delete" lazy="true">
     	<key column="idContact"/>
     	<many-to-many class="ContactGroup" column="idContactGroup"/>
     </set>

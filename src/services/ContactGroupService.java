@@ -2,28 +2,25 @@ package services;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import domain.DAOContactGroup;
 import domain.IDAOContactGroup;
 import entities.ContactGroup;
+import entities.GROUPNAME;
 
 public class ContactGroupService implements IContactGroupService{
 	
+	private IDAOContactGroup daoGroup=new DAOContactGroup();
+	public List<ContactGroup> list;
+	
 	public ContactGroup createContactGroup(String groupName) {
 		// TODO Auto-generated method stub
-		boolean isCreated=false;
-		ContactGroup createdGroup=null;
-		
+			
 		ContactGroup groupe=new ContactGroup();
 		
 		groupe.setGroupName(groupName);
-				
-		//appel du DAO
-		//IDAOContactGroup daoGroup=new DAOContactGroup();
-		
-		
-		//createdGroup=daoGroup.createGroup(groupe);
-		
-		//return createdGroup;
 		return groupe;
 	}
 	
@@ -31,13 +28,26 @@ public class ContactGroupService implements IContactGroupService{
 		
 		
 		//appel du DAO
-		IDAOContactGroup daoGroup=new DAOContactGroup();
-		ContactGroup createdGroup = daoGroup.createGroup(group);
-		if(createdGroup!=null){
+		
+		Boolean createdGroup = daoGroup.createGroup(group);
+		if(createdGroup){
 			return true;
 		}return false;
 	}
+
+	public ContactGroup loadGroup(Long idGroup) {
+		// TODO Auto-generated method stub
+		return daoGroup.loadGroup(idGroup);
+	}
 	
-	
+	public List<ContactGroup> initialiseGroup() {
+		// TODO Auto-generated method stub
+		
+		
+		
+		 this.list=daoGroup.initialiseGroup();
+		return list;
+		
+	}
 
 }

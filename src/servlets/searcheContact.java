@@ -53,7 +53,8 @@ public class searcheContact extends HttpServlet {
 		String country=request.getParameter("country");
 		String zip=request.getParameter("zip");
 		long numSiret = 0;
-		String phoneNumber=request.getParameter("phoneNumber");
+		String phone=request.getParameter("phoneNumber");
+		
 		if (request.getParameter("numSiret")!=""){
 			numSiret=Long.parseLong(request.getParameter("numSiret"));
 		}
@@ -68,7 +69,7 @@ public class searcheContact extends HttpServlet {
 	
 		//searchResut= contactService.searchContact(firstName,lastName,email,city,street,country,zip,phoneNumber);
 	
-		searchResut= contactService.searchContactBy(firstName,lastName,email,city,street,country,zip);
+		searchResut = contactService.searchContactBy(firstName,lastName,email,city,street,country,zip,numSiret,phone);
 
 		RequestDispatcher rd=request.getRequestDispatcher("searchContact.jsp");
 		request.setAttribute("result", searchResut);

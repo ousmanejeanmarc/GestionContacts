@@ -14,6 +14,9 @@ public class ContactGroup {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	public ContactGroup(String name){
+		this.setGroupName(name);
+	}
 	public ContactGroup( String groupName,
 			long idContactGroup) {
 		super();
@@ -44,9 +47,12 @@ public class ContactGroup {
 		this.idContactGroup = idContactGroup;
 	}
 	
-	public void addContact(Set<Contact> ct){
+	public void addContact(Contact cont){
 		
-		this.contacts.addAll(ct);
+		this.contacts.add(cont);
 	}
-
+	@Override
+	public String toString(){
+		return this.getIdContactGroup()+" "+ this.getGroupName();
+	}
 }

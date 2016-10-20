@@ -13,7 +13,7 @@
 	 </property>
 	 
 	<!-- un group contient plusieurs contact -->
-	<set name="contacts" table="GROUPE" inverse="true" cascade="all">
+	<set name="contacts" table="GROUPE" inverse="true" cascade="save-update,delete" lazy="true">
   		<key column="idContactGroup"/>
   		<many-to-many class="Contact" column="idContact"/>
   	</set> 

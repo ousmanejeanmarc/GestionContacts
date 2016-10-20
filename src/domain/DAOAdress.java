@@ -13,14 +13,12 @@ public class DAOAdress implements IDAOAddress{
 	public Address createAddress(Address address) {
 		// TODO Auto-generated method stub
 		
-		Address addrId=null;
+		
 		try {
 			session=HibernateUtil.getSessionFactory().getCurrentSession();
 			Transaction transaction=session.beginTransaction();
 			session.save(address);
 			transaction.commit();
-			addrId=(Address) session.load(Address.class, address.getId());
-			
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.getMessage());

@@ -10,9 +10,7 @@ public class AddressService implements IAddressService{
 	public Address createAddressContact(String street, String city, String zip,
 			String country) {
 		// TODO Auto-generated method stub
-		Address createdAddress = null;
-		boolean isCreated=false;
-		
+		Address createdAddress = null;	
 		Address addr=new Address();
 		
 		addr.setStreet(street);
@@ -24,8 +22,7 @@ public class AddressService implements IAddressService{
 		IDAOAddress daoAddr=new DAOAdress();
 		
 		//creation de l'addresse
-		 createdAddress=daoAddr.createAddress(addr);
-		 
+		 createdAddress=daoAddr.createAddress(addr);		 
 		return createdAddress;
 	}
 }
