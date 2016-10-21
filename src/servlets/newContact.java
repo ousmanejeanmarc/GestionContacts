@@ -21,8 +21,7 @@ import entities.Address;
 import entities.Contact;
 import entities.ContactGroup;
 import entities.Entreprise;
-import entities.GROUPNAME;
-import entities.PHONEKIND;
+
 import entities.PhoneNumber;
 import services.AddressService;
 import services.ContactGroupService;
@@ -84,7 +83,7 @@ public class newContact extends HttpServlet {
 		//Phone 
 		String phoneKind=request.getParameter("phoneKind");
 		String phoneNumber=request.getParameter("phoneNumber");
-		phoneNumbers=recupPhoneNumber(request);
+		//phoneNumbers=recupPhoneNumber(request);
 		
 		//recuperation du groupe
 		String group = request.getParameter("newGroup");
@@ -165,7 +164,7 @@ public class newContact extends HttpServlet {
 	 * @param response
 	 * @return
 	 */
-	public HashMap<String, String> recupPhoneNumber(HttpServletRequest request){
+	/*public HashMap<String, String> recupPhoneNumber(HttpServletRequest request){
 		
 		String mobile,maison,bureaux,autre;
 		HashMap<String, String>list=new HashMap<String, String>();
@@ -187,7 +186,7 @@ public class newContact extends HttpServlet {
 			list.put(PHONEKIND.AUTRE.toString(), autre);
 		}
 		return list;
-	}
+	}*/
 	
 	/**
 	 * recuperation de tous les phone number

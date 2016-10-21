@@ -3,7 +3,9 @@ package domain;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -39,5 +41,22 @@ public class DAOPhoneNumber implements IDAOPhoneNumber {
 		return true;
 	}
 
+	public List<PhoneNumber> getPhoneNumbers(String email) {
+		// TODO Auto-generated method stub
+		session=HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx=session.beginTransaction();
+		Query request = session.createQuery("from PhoneNumber as phones where phones.contact.email = :email");
+		List<PhoneNumber> response =request.setString("email", email).list();		
+		tx.commit();
+		return response;
+	}
+
+	public void updateNumber(PhoneNumber phone) {
+		// TODO Auto-generated method stub
+		session=HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction tx=session.beginTransaction();
+		session.update(phone);
+		tx.commit();
+	}
 
 }

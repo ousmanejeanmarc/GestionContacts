@@ -1,11 +1,17 @@
 package services;
 
+import java.util.HashMap;
+
 import domain.DAOAdress;
 import domain.IDAOAddress;
 import entities.Address;
+import entities.Contact;
 
 public class AddressService implements IAddressService{
 	
+	private IContactService contactService = new ContactService();
+	private IDAOAddress daoAddress = new DAOAdress();
+
 
 	public Address createAddressContact(String street, String city, String zip,
 			String country) {
@@ -25,4 +31,24 @@ public class AddressService implements IAddressService{
 		 createdAddress=daoAddr.createAddress(addr);		 
 		return createdAddress;
 	}
+
+	public Address getAddressContact(Contact contact) {
+		// TODO Auto-generated method stub
+		
+		return daoAddress.getAddressContact(contact);
+		
+	}
+	public Address getAddressContact(String email) 
+	{
+		return daoAddress.getAddressContact(email);
+	}
+
+	public void updateAddress(Long idContact,
+			HashMap<String, String> attributes) {
+		// TODO Auto-generated method stub
+		Address address = new Address(attributes);
+		daoAddress.updateAddress(address);
+		
+	}
 }
+

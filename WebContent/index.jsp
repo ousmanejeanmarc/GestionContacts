@@ -1,30 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Gestion des contacts</title>
+<title>Login</title>
+<link rel="stylesheet" type="text/css" href="design/design.css">
 </head>
 <body>
-<form method="post" action="LoginServlet">
-	<table>
+
+<form method="post" action="LoginServlet" id="form"  onsubmit="return check(this)">
+
+	<table align="center" id="connect">
+			
+			<th align="left"><h3 class="bold">Stay Connected!</h3></th>
+			
 			<tr>
-				<th><h2>Voici un premier exemple de composant web avec un servlet</h2></th>
+				<td><label for="name">Login:</label></td><td><i> <input type="text" id="name" name="name" size="25"> </i></td>
 			</tr>
 			<tr>
-				<td><i>Name: <input type="text" name="name" size="25"> </i></td>
+				<td><label for="password">Password	:</label></td><td><i> <input type="password" id="password" name="password" size="25"> </i></td>
 			</tr>
-			<tr>
-				<td><i>Password: <input type="password" name="password" size="25"> </i></td>
-			</tr>
-			<tr>
-				<td>	<input class="button" type ="submit" value="Submit"/>
-					     <input class="button" type ="reset" value="Reset"/></td>
+			<tr align="center">
+			<td></td>
+				<td colspan=2>	<input class="button" type ="submit" value="Submit"/>
+				     <input class="button" type ="reset" value="Reset"/>
 				</td>
 				
 			</tr>
 	</table>
 </form>
+  <script type='text/javascript'>
+function check(form)
+{
+
+	var login = form.elements['name'].value
+	var passwd = fomr.elements['password'].value
+	var submit = true;
+	if(login=="")
+	{
+		form.elements['name'].style ="border-color:red";
+		submit = false
+	}
+	
+	if(passwd=="")
+	{
+		form.elements['password'].style ="border-color:red";
+		submit = false
+	}
+	return submit;
+}
+</script>
 </body>
 </html>

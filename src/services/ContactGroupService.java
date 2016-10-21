@@ -8,7 +8,7 @@ import java.util.List;
 import domain.DAOContactGroup;
 import domain.IDAOContactGroup;
 import entities.ContactGroup;
-import entities.GROUPNAME;
+
 
 public class ContactGroupService implements IContactGroupService{
 	
@@ -48,6 +48,11 @@ public class ContactGroupService implements IContactGroupService{
 		 this.list=daoGroup.initialiseGroup();
 		return list;
 		
+	}
+
+	public List<ContactGroup> showGroup() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

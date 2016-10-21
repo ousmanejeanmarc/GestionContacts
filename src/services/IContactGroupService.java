@@ -9,4 +9,5 @@ public interface IContactGroupService {
 	public ContactGroup createContactGroup(String groupName);
 	public boolean save (ContactGroup grp);
 	public List<ContactGroup> initialiseGroup();
+	public List<ContactGroup> showGroup();
 }

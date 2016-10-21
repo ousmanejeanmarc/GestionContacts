@@ -73,7 +73,7 @@
 					<%
 					ContactGroupService serviceG=new ContactGroupService();
 					List<ContactGroup> list=serviceG.initialiseGroup();
-				
+					if(list != null)
 					for(int i=0;i<list.size();i++){%>
 						<label><input type="checkbox"  name="groupes<%=i%>"
 								 value="<%=list.get(i).getIdContactGroup()%>"><%=list.get(i).getGroupName()%></label><br>

@@ -8,14 +8,6 @@ public class PhoneNumber {
 	private Contact contact;
 	
 	
-	
-	
-	
-	public PhoneNumber() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
 	public PhoneNumber(String phoneKind, String phoneNumber,Contact contact) {
 		super();
 		this.phoneKind = phoneKind;
@@ -23,7 +15,11 @@ public class PhoneNumber {
 		this.contact=contact;
 	}
 	
-	
+	public PhoneNumber() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public long getId() {
 		return idPhoneNumber;
 	}
@@ -56,8 +52,6 @@ public class PhoneNumber {
 	public void setContact(Contact contact) {
 		this.contact = contact;
 	}
-	@Override
-	public String toString(){
-		return this.getPhoneKind()+" "+this.getPhoneNumber();
-	}
+
+
 }

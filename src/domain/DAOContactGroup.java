@@ -43,12 +43,14 @@ public class DAOContactGroup implements IDAOContactGroup {
 
 	public List<ContactGroup> initialiseGroup() {
 		// TODO Auto-generated method stub
-		session=HibernateUtil.getSessionFactory().getCurrentSession();
+		//session=HibernateUtil.getSessionFactory().getCurrentSession();
+	/*	session=HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction=session.beginTransaction();
 		String qery="from ContactGroup";		
 		List<ContactGroup> result = (List<ContactGroup>) session.createQuery(qery).list();
 		transaction.commit();
-		return result;
+		return result;*/
+		return null;
 
 	}
 

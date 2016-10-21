@@ -7,13 +7,14 @@
 <title>Suppression d'un contact</title>
 </head>
 <body>
-	<form method="post" action="deleteContact.java">
+	<form method="post" action="deleteContact">
 		<table>
 			<tr>
 				<th><h2>Suppression d'un contact</h2></th>
 		</tr>
 		<tr>
-				<td><i>id: <input type="text" name="id" size="25"> </i></td>
+				<td><i>id: <input type="text" name="idContact" size="25"> </i></td>
+				<td><i>id: <input type="text" name="idContact" size="25"> </i></td>
 		</tr>
 		<tr> 
 				</br>

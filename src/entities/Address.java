@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.HashMap;
+
 public class Address {
 	
 	
@@ -22,6 +24,15 @@ public class Address {
 		City = city;
 		Zip = zip;
 		Country = country;
+	}
+
+
+	public Address(HashMap<String, String> attributesAddress) {
+		// TODO Auto-generated constructor stub
+		Street = attributesAddress.get("street");
+		City = attributesAddress.get("city");
+		Zip = attributesAddress.get("zip");
+		Country= attributesAddress.get("country");
 	}
 
 
@@ -72,6 +83,16 @@ public class Address {
 
 	public void setId(long idAddress) {
 		this.idAddress = idAddress;
+	}
+
+
+	public void setAttributes(HashMap<String, String> attributesAddress) {
+		// TODO Auto-generated method stub
+		Street = attributesAddress.get("street");
+		City = attributesAddress.get("city");
+		Zip = attributesAddress.get("zip");
+		Country= attributesAddress.get("country");
+		
 	}
 	
 	

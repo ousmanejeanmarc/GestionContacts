@@ -2,13 +2,14 @@ package services;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import domain.DAOPhoneNumber;
 import domain.IDAOPhoneNumber;
 import entities.Contact;
 import entities.PhoneNumber;
 
-public class PhoneNumberService implements IPhoneNumberService{
+public  class PhoneNumberService implements IPhoneNumberService{
 	
 	IDAOPhoneNumber daophoneNumber=new DAOPhoneNumber();
 
@@ -37,6 +38,11 @@ public class PhoneNumberService implements IPhoneNumberService{
 		   daophoneNumber.createContactPhoneNumber(phone);
 		}*/
 		return true;
+	}
+
+	public List<PhoneNumber> getPhoneNumbers(String email) {
+		// TODO Auto-generated method stub
+		return daophoneNumber.getPhoneNumbers(email);
 	}
 
 	

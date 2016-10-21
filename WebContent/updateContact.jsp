@@ -6,11 +6,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
-<table>
+<body> 
+<form method="post" action="UpdateContact">
+ <table>
 <tr>
 <td><h2><label for="id"> Id Contact : </label></h2></td>
-<td><input type="text" name="id" size="10"> 
+<td><input type="text" name="idContact" size="10"> 
+	<input type="hidden" name="typeContact" value="entreprise"/>
 	<input type="submit"/> 
 </td> 
 </tr>
@@ -20,5 +22,6 @@
  <input type="submit"/> </td>
 </tr>
 </table>
+</form>
 </body>
 </html>

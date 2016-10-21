@@ -1,10 +1,7 @@
 package entities;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.eclipse.jdt.internal.compiler.ast.ArrayAllocationExpression;
 
 public class Contact {
 
@@ -13,20 +10,10 @@ public class Contact {
 	private String email;
 	private long idContact;
 	private Address  address;
-	private Set<PhoneNumber> phoneNumber= new HashSet<PhoneNumber>();
-	
-	public Set<PhoneNumber> getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(Set<PhoneNumber> phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-	private Set<ContactGroup>group=new HashSet<ContactGroup>(); 
+	private Set<PhoneNumber> phoneNumbers=new HashSet<PhoneNumber>();
+	private Set<ContactGroup>group=new HashSet<ContactGroup>();
 	private int version;
-	
-	
-	
+
 	public Contact() {super();}
 	
 	public Contact(String firstName, String lastName, String email) {
@@ -45,8 +32,14 @@ public class Contact {
 	public void setEmail(String email) {this.email = email;}
 	public long getId() {return idContact;}
 	public void setId(long id) {this.idContact = id;}
+	public Set<PhoneNumber> getPhoneNumber() {return phoneNumbers;}
+	public void setPhoneNumber(Set<PhoneNumber> phoneNumber) {
+		phoneNumber=new HashSet<PhoneNumber>();
+		this.phoneNumbers = phoneNumber;
+	}
+	public Address getAddress() {
 		
-	public Address getAddress() {return address;}
+		return address;}
 	public void setAddress(Address address) {this.address = address;}
 
 	/**
@@ -63,14 +56,17 @@ public class Contact {
 	public void setGroup(Set<ContactGroup> group) {
 		this.group = group;
 	}
-	public void addGroup(ContactGroup grp)
+	public void addGroup(Set<ContactGroup> grp)
 	{
 		
-			this.group.add(grp);
+			this.group.addAll(grp);
 	
 	}
-	public void addPhoneNumber(Set<PhoneNumber> phones){
-		this.phoneNumber.addAll(phones);
+
+	public void addGroup(ContactGroup grp) {
+		// TODO Auto-generated method stub
+		this.group.add(grp);
+		
 	}
 
 }

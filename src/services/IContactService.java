@@ -3,6 +3,7 @@ package services;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import entities.Address;
@@ -29,6 +30,10 @@ public interface IContactService {
 			);
 	
 	public ArrayList<Contact>searchContact(String firstName,String lastName,String email,Address addr,PhoneNumber phone,ContactGroup group);
+	public boolean removeContacts(String[] idContacts);
+	public void updateContact(HashMap<String, String> attributes);
+	public Entreprise loadEntreprise(Long idContact);
+	public Contact loadContact(Long idContact);
 	
 	
 	

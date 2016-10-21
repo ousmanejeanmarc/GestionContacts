@@ -1,22 +1,27 @@
 package domain;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import org.hibernate.Session;
+
+import entities.Address;
 import entities.Contact;
 import entities.Entreprise;
+import entities.PhoneNumber;
 
 public interface IDAOContact {
 	
-	
 	public Contact createContact(Contact contact);
-	public Entreprise createEntreprise(Entreprise entrp);
-	public boolean deleteContact(Contact contact);
-	public Contact updateContact(Contact contact);
+	public Entreprise createEntreprise(Entreprise entrp);	
+	//public void updateContact(Contact contact, HashMap<String, String> attributes, Address addressContact, List<PhoneNumber> phones);	
+	public boolean deleteContact(Long contact);
+	public Entreprise loadEntreprise(Long idEntreprise);
+	public Contact loadContact(Long idContact);
+	public Contact findContactById(Long idContact);
+	public void updateContact(Contact contact,
+			HashMap<String, String> attributes, Address addressContact,
+			List<PhoneNumber> phones);
 	
-	public ArrayList<Contact>searchContactByFirstName(String firstName);
-	
-	public List<Contact> searchContactByEntreprise(String firstName,String lastName,String email,
-			String city,String street, String country, String zip,long numSiret,String phone);	
 
 }

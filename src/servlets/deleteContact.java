@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import services.ContactService;
+import services.IContactService;
 import domain.DAOContact;
 
 /**
@@ -35,11 +37,11 @@ public class deleteContact extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	String id=request.getParameter("id");
 		
-		//creation de l'instance de DAOContact et appel de sa methode addContact
-		DAOContact  daoc=new DAOContact();
-		//daoc.deleteContact(id);
+		String[] idContacts=request.getParameterValues("idContact");//identifiants des contacts		
+		//creation de l'instance de DAOContact et appel de sa methode addContact		
+		IContactService serviceContact = new ContactService();
+		serviceContact.removeContacts(idContacts);
 		
 	}
 

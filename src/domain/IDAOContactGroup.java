@@ -5,7 +5,7 @@ import java.util.List;
 
 import entities.Contact;
 import entities.ContactGroup;
-import entities.GROUPNAME;
+
 
 public interface IDAOContactGroup {
 

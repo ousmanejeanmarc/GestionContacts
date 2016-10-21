@@ -33,15 +33,36 @@
   <servlet-mapping>
     <servlet-name>deleteContact</servlet-name>
     <url-pattern>/deleteContact</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping>  
   <servlet>
-    <description></description>
-    <display-name>searcheContact</display-name>
-    <servlet-name>searcheContact</servlet-name>
-    <servlet-class>servlets.searcheContact</servlet-class>
-  </servlet>
+  <description></description>
+  <display-name>UpdateContact</display-name>
+  <servlet-name>UpdateContact</servlet-name>
+  <servlet-class>servlets.UpdateContact</servlet-class>
+  </servlet> 
   <servlet-mapping>
-    <servlet-name>searcheContact</servlet-name>
-    <url-pattern>/searcheContact</url-pattern>
-  </servlet-mapping>
+  <servlet-name>UpdateContact</servlet-name>
+  <url-pattern>/UpdateContact</url-pattern>
+  </servlet-mapping> 
+   <servlet>
+  <description></description>
+  <display-name>DeleteGroup</display-name>
+  <servlet-name>DeleteGroup</servlet-name>
+  <servlet-class>servlets.DeleteGroup</servlet-class>
+  </servlet> 
+  <servlet-mapping>
+  <servlet-name>DeleteGroup</servlet-name>
+  <url-pattern>/DeleteGroup</url-pattern>
+  </servlet-mapping> 
+  <servlet>
+  <description></description>
+  <display-name>ShowGroup</display-name>
+  <servlet-name>ShowGroup</servlet-name>
+  <servlet-class>servlets.ShowGroup</servlet-class>
+  </servlet> 
+  <servlet-mapping>
+  <servlet-name>ShowGroup</servlet-name>
+  <url-pattern>/ShowGroup</url-pattern>
+  </servlet-mapping> 
+    
 </web-app>
