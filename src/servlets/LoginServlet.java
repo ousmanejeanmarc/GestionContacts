@@ -48,9 +48,13 @@ public class LoginServlet extends HttpServlet {
 			
 			
 			
-			RequestDispatcher rd =request.getRequestDispatcher("accueil.jsp");
-		
+			RequestDispatcher rd =request.getRequestDispatcher("accueil.jsp");		
 			rd.forward(request, response);
+			/****add jean-marc ***/			
+		/*	RequestDispatcher rd =request.getRequestDispatcher("home.jsp");		
+			rd.forward(request, response);
+	*/
+		
 			
 		}else {
 			//response.sendRedirect("index.html");

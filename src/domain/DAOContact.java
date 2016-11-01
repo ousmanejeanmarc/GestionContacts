@@ -4,24 +4,32 @@ package domain;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.transaction.TransactionManager;
+
+import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
 import entities.Address;
 import entities.Contact;
+import entities.ContactGroup;
 import entities.Entreprise;
 import entities.PhoneNumber;
 import util.HibernateUtil;
 
+
 public class DAOContact implements IDAOContact{
+	
 	
 		
 	
 	public Contact createContact(Contact contact) {
-		// TODO Auto-generated method stub
+		
 	
 		try {
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -30,43 +38,46 @@ public class DAOContact implements IDAOContact{
 			transaction.commit();
 						
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			System.out.println(e.getMessage());
 		}	
 		return contact;
 	}
-	public Entreprise createEntreprise(Entreprise entrp){
+/*	
+	public boolean deleteContactPhones(Contact contact)
+	{
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		Transaction transaction = session.beginTransaction();
 		try {
-			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-			Transaction transaction=session.beginTransaction();
-			session.saveOrUpdate(entrp);
+			session.createQuery("delete PhoneNumber as phone where  phone.contact= :contact").setEntity("contact", contact).executeUpdate();
 			transaction.commit();
-						
+			
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println(e.getMessage());
-		}	
-		return entrp;
+			transaction.rollback();
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
-
 	
-	
-	
+	*/
 	
 	public boolean deleteContact(Long idContact) {
-		// TODO Auto-generated method stub
+		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = session.beginTransaction();
+
 		try
 		{
-			Contact contact = (Contact)session.load(Contact.class, idContact);
-			System.out.println("le nom du contact supprimé "+contact.getFirstName());
-			session.delete(contact);
-			transaction.commit();
+			Contact contact = (Contact)session.load(Contact.class, idContact);			
+			session.createQuery("delete from Contact as contact where  contact.email= :email").setString("email", contact.getEmail()).executeUpdate();
+			session.flush();
+			transaction.commit();			
 		} 
 		catch (Exception e) 
 		{
-			// TODO: handle exception
+		//	transaction.rollback();
 			e.printStackTrace();
 			
 			return false;
@@ -75,16 +86,9 @@ public class DAOContact implements IDAOContact{
 		return true;
 	}
 
-	public Entreprise loadEntreprise(Long idEntreprise) {
-		// TODO Auto-generated method stub
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = session.beginTransaction();	
-		Entreprise entreprise = (Entreprise)session.load(Entreprise.class, idEntreprise);
-		transaction.commit();
-		return entreprise;
-	}
+	
 	public Contact findContactById(long contactId) {
-		// TODO Auto-generated method stub
+	
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = session.beginTransaction();		
 		Contact contact = (Contact) session.load(Contact.class, contactId);	
@@ -93,16 +97,16 @@ public class DAOContact implements IDAOContact{
 	}
 /*
 	public ArrayList<Contact> findContactByLastName(String lastname) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}*/
 
 /*	public ArrayList<Contact> findContactByEmail(String email) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 	public ArrayList<Contact> searchContactByFirstName(String firstName) {
-		// TODO Auto-generated method stub
+		
 		ArrayList<Contact> result=null;
 		try {
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -112,7 +116,7 @@ public class DAOContact implements IDAOContact{
 			result= (ArrayList<Contact>) session.createQuery(qery).setString("firstName", firstName).list();
 	
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 		}
 			
 		return result;
@@ -141,7 +145,7 @@ public class DAOContact implements IDAOContact{
 					.list();	
 	
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 		}
 			
 		return result;
@@ -173,32 +177,25 @@ public class DAOContact implements IDAOContact{
 			System.out.print("------------------------------------------------>taille"+result.size());
 			transaction.commit();
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 		}
 		
 		return result;
 	}*/
 	
 	public Contact findContactById(Long contactId) {
-		// TODO Auto-generated method stub
+		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = session.beginTransaction();		
 		Contact contact = (Contact) session.load(Contact.class, contactId);	
+		Hibernate.initialize(contact.getAddress());
+		Hibernate.initialize(contact.getPhoneNumbers());
 		transaction.commit();
 		return contact;
 	}
 
-	public ArrayList<Contact> findContactByLastName(String lastname) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public ArrayList<Contact> findContactByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	public ArrayList<Contact> searchContactByFirstName(String firstName) {
-		// TODO Auto-generated method stub
+		
 		ArrayList<Contact> result=null;
 		try {
 			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -206,11 +203,11 @@ public class DAOContact implements IDAOContact{
 		
 			String qery="from Contact as c where c.firstName= :firstName";		
 			result= (ArrayList<Contact>) session.createQuery(qery).setString("firstName", firstName).list();
-	
+			//transaction.commit();
 		} catch (Exception e) {
-			// TODO: handle exception
-		}
 			
+		}
+	
 		return result;
 	}
 	@SuppressWarnings("unchecked")
@@ -235,9 +232,9 @@ public class DAOContact implements IDAOContact{
 					.add(Restrictions.like("addr.country","%"+country+"%"))
 					.add(Restrictions.like("addr.zip","%"+zip+"%"))
 					.list();	
-	
+			transaction.commit();
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 		}
 			
 		return result;
@@ -269,14 +266,14 @@ public class DAOContact implements IDAOContact{
 			System.out.print("------------------------------------------------>taille"+result.size());
 			transaction.commit();
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 		}
 		
 		return result;
 	}
 	
 	public void updateContact(Contact contact, HashMap<String, String> attributes, Address addressContact, List<PhoneNumber> phones) {
-		// TODO Auto-generated method stub
+		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Transaction transaction = session.beginTransaction();
 		
@@ -285,8 +282,7 @@ public class DAOContact implements IDAOContact{
 		contact.setLastName(attributes.get("lastName"));
 		//Mise à jour pour maintenance bidirectionnelle
 		contact.setAddress(addressContact);		
-		contact.setPhoneNumber(new HashSet<PhoneNumber>(phones));
-		
+		contact.setPhoneNumbers(new HashSet<PhoneNumber>(phones));		
 		session.update(contact);
 		transaction.commit();
 
@@ -296,7 +292,7 @@ public class DAOContact implements IDAOContact{
 
 	
 	public Contact loadContact(Long idContact) {
-		// TODO Auto-generated method stub
+		
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();		
 		Transaction transaction = session.beginTransaction();	
@@ -306,6 +302,33 @@ public class DAOContact implements IDAOContact{
 		transaction.commit();
 		return contact;
 	}
+	
+/*	public void fetchInfo(Contact contact)
+	{
+		if(!Hibernate.isInitialized(contact))//pas necessaire
+			return;
+		Hibernate.initialize(contact.getPhoneNumber());
+		for(PhoneNumber phone: contact.getPhoneNumber())
+			Hibernate.initialize(phone);
+		Hibernate.initialize(contact.getGroup());
+		for(ContactGroup groupe: contact.getGroup())
+			Hibernate.initialize(groupe);
+	}
+	*/
+	
+	public List<Contact> getAllContact() {
+	// TODO Auto-generated method stub
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();			
+		Transaction transaction = session.beginTransaction();	
+		List<Contact> contacts = session.createQuery(" from Contact as contact where contact.class=Contact order by contact.firstName ASC ").list();
+	
+		transaction.commit();	
+
+		return contacts;
+		}
+	
+	
+	
 
 
 	

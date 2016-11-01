@@ -38,10 +38,10 @@ public class deleteContact extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		String[] idContacts=request.getParameterValues("idContact");//identifiants des contacts		
+		String idContact=request.getParameter("idContact");//identifiants des contacts		
 		//creation de l'instance de DAOContact et appel de sa methode addContact		
 		IContactService serviceContact = new ContactService();
-		serviceContact.removeContacts(idContacts);
+		serviceContact.removeContacts(idContact);
 		
 	}
 

@@ -14,11 +14,11 @@
 	<td align="right">
 		<fieldset>
 			<legend>Recherché par</legend>
-			<i>Numero Siret: <input type="long" name="numSiret" size="25"> </i><br/>
+			
 			<i>FirstName: <input type="text" name="firstName" size="25"> </i><br/>
 			<i>LastName: <input type="text" name="lastName" size="25"> </i><br/>
 			<i>Email: <input type="text" name="email" size="25"> </i><br/>
-			<i>Phone Number: <input type="text" name="phoneNumber" size="25"> </i><br/>
+			<!--  <i>Phone Number: <input type="text" name="phoneNumber" size="25"> </i><br/> -->
 		</fieldset>
 	</td>
 </tr>
@@ -34,12 +34,6 @@
 	</td>
 </tr>
 
-	<td align="right">
-		<fieldset>
-			<legend>Recherché par Groupe</legend>
-			<i>group: <input type="long" name="group" size="25"> </i> 
-		</fieldset>
-	</td>
 	
 </tr>
 <tr>
@@ -55,8 +49,6 @@
 	<th>LastName</th>
 	<th>Email</th>
 	<th>address</th>
-	<th>Telephone</th>
-	<th>Groupe</th>
 <!-- mettre le resultat de la recherche dans cette table -->
 <% 
 	ArrayList<Contact> result=null;
@@ -77,13 +69,7 @@
 				out.print("</td><td>");
 					out.print(result.get(i).getAddress().getStreet()+"\n"
 							+result.get(i).getAddress().getZip()+"\n"
-							+result.get(i).getAddress().getCity()
-							
-							);
-					out.print("</td><td>");
-					out.print(result.get(i).getPhoneNumber().toString());
-					out.print("</td><td>");
-					out.print(result.get(i).getGroup().toString());
+							+result.get(i).getAddress().getCity());	
 				out.print("</td></tr>");
 			}
 		}else {

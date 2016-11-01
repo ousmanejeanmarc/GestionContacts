@@ -24,6 +24,25 @@
     <servlet-name>newContact</servlet-name>
     <url-pattern>/newContact</url-pattern>
   </servlet-mapping>
+  
+   <servlet>
+    <description></description>
+    <display-name>NewEntreprise</display-name>
+    <servlet-name>NewEntreprise</servlet-name>
+    <servlet-class>servlets.NewEntreprise</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewEntreprise</servlet-name>
+    <url-pattern>/NewEntreprise</url-pattern>
+  </servlet-mapping>
+  
+   <!-- Lignes Spring Start--> 
+    <listener>
+  <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <listener> <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+  </listener>
+    <!-- Lignes Spring End-->  
   <servlet>
     <description></description>
     <display-name>deleteContact</display-name>
@@ -64,5 +83,36 @@
   <servlet-name>ShowGroup</servlet-name>
   <url-pattern>/ShowGroup</url-pattern>
   </servlet-mapping> 
-    
+  
+  <servlet>
+  <description></description>
+  <display-name>searcheContact</display-name>
+  <servlet-name>searcheContact</servlet-name>
+  <servlet-class>servlets.searcheContact</servlet-class>
+  </servlet> 
+  <servlet-mapping>
+  <servlet-name>searcheContact</servlet-name>
+  <url-pattern>/searcheContact</url-pattern>
+  </servlet-mapping> 
+     <servlet>
+  <description></description>
+  <display-name>searchEntreprise</display-name>
+  <servlet-name>searchEntreprise</servlet-name>
+  <servlet-class>servlets.searchEntreprise</servlet-class>
+  </servlet> 
+  <servlet-mapping>
+  <servlet-name>searchEntreprise</servlet-name>
+  <url-pattern>/searchEntreprise</url-pattern>
+  </servlet-mapping> 
+   <servlet>
+  <description></description>
+  <display-name>UpdateGroup</display-name>
+  <servlet-name>UpdateGroup</servlet-name>
+  <servlet-class>servlets.UpdateGroup</servlet-class>
+  </servlet> 
+  <servlet-mapping>
+  <servlet-name>UpdateGroup</servlet-name>
+  <url-pattern>/UpdateGroup</url-pattern>
+  </servlet-mapping> 
+  
 </web-app>

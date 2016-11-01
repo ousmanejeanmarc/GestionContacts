@@ -12,7 +12,10 @@
 <%
 	/*Pour savoir si c'est une entreprise ou  un simple contact placé le input  de type hidden  et comme name l'idContact
 	et value "entreprise" "contact" pour entreprise ou contact*/
-		boolean isEntreprise = (Boolean)request.getAttribute("isEntreprise");
+
+	    String isEntreprise = (String)request.getAttribute("isEntreprise");
+
+
 		String pageResponse = "<html><head><title>Mise à jour Contact</title></head><body>";
 		pageResponse += "<form method='post' action='UpdateContact'>";
 		pageResponse +="<fieldset><legend>Modifier les inforations du Contact</legend>";
@@ -27,29 +30,29 @@
 		String country = (address==null)?"": address.getCountry();
 		
 		List<PhoneNumber> phones =(List<PhoneNumber>) request.getAttribute("phones");
-		for(PhoneNumber phone : phones)
-		{
-			System.out.println("numero dans jsp -------------->"+ phone.getPhoneNumber());
-		}
+
 		
 		
-		if(isEntreprise)
+		if(isEntreprise.equals("true"))
 		{
+			
 			entreprise =(Entreprise)request.getAttribute("contact");
 			pageResponse += "<tr align='center'><td align='right'><i>NumeroSiret:</td> ";
 			pageResponse += "<td><input type='text' name='numSiret' value='"+entreprise.getNumSiret()+"' size ='50'> </i></td></tr>";
 			contact = (Contact)entreprise;
+			pageResponse += "<input type='hidden' name ='typeOfContact' value='entreprise'/>";
 		}
 		else
 		{
 			contact = (Contact)request.getAttribute("contact");
+			pageResponse += "<input type='hidden' name ='typeOfContact' value='contact'/>";
 		}	
 		
 		pageResponse += "<tr align='center'><td align='right'><i>FirstName:</td> ";
 		pageResponse += "<input type='hidden' name ='idContact' value='"+contact.getId()+"'/>";
 		pageResponse += "<td><input type='text' name='firstName' value='"+contact.getFirstName()+"' size ='50'> </i></td></tr>";
 		pageResponse += "<tr><td align='right'><i>LastName:</td><td><input type='text' name='lastName' value='"+contact.getLastName()+"' size ='50'> </i></td></tr>";
-		pageResponse += "<tr><td><input type='text' name='email' value='"+contact.getEmail()+"' size ='50'> </i></td></tr>";
+		pageResponse += "<tr><td align='right'><i>Email:</td><td><input type='text' name='email' value='"+contact.getEmail()+"' size ='50'> </i></td></tr>";
 
 		pageResponse += "<tr><td align='right'><i>City:</td><td><input type='text' name='city' value='"+city+"' size ='50'> </i></td></tr>";
 		pageResponse +="<tr><td align='right'><i>street:</td><td><input type='text' name='street' value='"+ street+"' size ='50'> </i></td></tr>";

@@ -7,6 +7,7 @@ import java.util.List;
 
 import domain.DAOContactGroup;
 import domain.IDAOContactGroup;
+import entities.Contact;
 import entities.ContactGroup;
 
 
@@ -42,9 +43,6 @@ public class ContactGroupService implements IContactGroupService{
 	
 	public List<ContactGroup> initialiseGroup() {
 		// TODO Auto-generated method stub
-		
-		
-		
 		 this.list=daoGroup.initialiseGroup();
 		return list;
 		
@@ -52,7 +50,35 @@ public class ContactGroupService implements IContactGroupService{
 
 	public List<ContactGroup> showGroup() {
 		// TODO Auto-generated method stub
-		return null;
+		return daoGroup.showGroup();
+	}
+
+	public void removeGroup(Long idGroup) {
+		// TODO Auto-generated method stub
+		daoGroup.deleteGroup(idGroup);
+	}
+
+	public void updateGroup(Long idGroup,String name) {
+		// TODO Auto-generated method stub			
+			daoGroup.update(idGroup,name);
+
+		
+	}
+
+	public boolean removeFromGroup(Contact contact, ContactGroup group) {
+		// TODO Auto-generated method stub
+		
+		return daoGroup.removeContact(contact,group);
+	}
+
+	public void createContactGroup(ContactGroup group) {
+		// TODO Auto-generated method stub
+		daoGroup.createGroup(group);
+	}
+
+	public void update(ContactGroup group) {
+		// TODO Auto-generated method stub
+		daoGroup.update(group);
 	}
 
 }

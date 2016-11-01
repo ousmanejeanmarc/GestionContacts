@@ -5,14 +5,14 @@ import java.util.Set;
 
 public class Contact {
 
-	private String firstName;
-	private String lastName;
-	private String email;
-	private long idContact;
-	private Address  address;
-	private Set<PhoneNumber> phoneNumbers=new HashSet<PhoneNumber>();
-	private Set<ContactGroup>group=new HashSet<ContactGroup>();
-	private int version;
+	protected String firstName;
+	protected String lastName;
+	protected String email;
+	protected long idContact;
+	protected Address  address;
+	protected Set<PhoneNumber> phoneNumbers=new HashSet<PhoneNumber>();
+	protected Set<ContactGroup>group=new HashSet<ContactGroup>();
+	protected int version;
 
 	public Contact() {super();}
 	
@@ -32,8 +32,8 @@ public class Contact {
 	public void setEmail(String email) {this.email = email;}
 	public long getId() {return idContact;}
 	public void setId(long id) {this.idContact = id;}
-	public Set<PhoneNumber> getPhoneNumber() {return phoneNumbers;}
-	public void setPhoneNumber(Set<PhoneNumber> phoneNumber) {
+	public Set<PhoneNumber> getPhoneNumbers() {return phoneNumbers;}
+	public void setPhoneNumbers(Set<PhoneNumber> phoneNumber) {
 		phoneNumber=new HashSet<PhoneNumber>();
 		this.phoneNumbers = phoneNumber;
 	}

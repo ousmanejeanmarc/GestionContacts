@@ -2,13 +2,20 @@ package services;
 
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import domain.DAOAdress;
 import domain.DAOContact;
@@ -25,13 +32,24 @@ import entities.Entreprise;
 import entities.PhoneNumber;
 
 public class ContactService implements IContactService{
+/*	private  IDAOContact daoContact;
+	private IDAOAddress daoAddress;
+	*/
 	
-	
-	private IDAOAddress daoAddress = new DAOAdress();
-	private IDAOPhoneNumber daoPhoneNumber = new DAOPhoneNumber();
-	 private  IDAOContact daoContact=new DAOContact();
-	 private IDAOContactGroup daoGroup = new DAOContactGroup();
-	/**
+//	 ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"applicationContext.xml"});
+	 
+private IDAOAddress daoAddress = new DAOAdress();
+ 	private IDAOPhoneNumber daoPhoneNumber = new DAOPhoneNumber();
+	 private  IDAOContact daoContact=new DAOContact();	
+   private IDAOContactGroup daoGroup = new DAOContactGroup();
+ 
+
+	/*** SPring**/
+//	 private  IDAOContact daoContact=(IDAOContact) context.getBean("BeanContact");
+//	private IDAOContactGroup daoGroup = (IDAOContactGroup) context.getBean("BeanGroup");	
+//	 private IDAOAddress daoAddress = (IDAOAddress) context.getBean("BeanAddress");
+//	 private IDAOPhoneNumber daoPhoneNumber = (IDAOPhoneNumber) context.getBean("BeanPhone");
+	 /**
 	 * 
 	 */
 	public Contact createContact(String firstName, String lastName, String email,Address idAddress) {
@@ -45,18 +63,7 @@ public class ContactService implements IContactService{
 		contact.setAddress(idAddress);
 		return contact;
 	}
-	public Entreprise createEntreprise(String firstName, String lastName, String email,Address idAddress,long numSiret) {
-		// TODO Auto-generated method stub
-		
-		Entreprise ent=new Entreprise();
-		
-		ent.setFirstName(firstName);
-		ent.setLastName(lastName);
-		ent.setEmail(email);
-		ent.setAddress(idAddress);
-		ent.setNumSiret(numSiret);
-		return ent;
-	}
+	
 	
 	/**
 	 * ousmane 
@@ -85,17 +92,6 @@ public class ContactService implements IContactService{
 		}
 		return false;
 	}
-public boolean saveEntreprise(Entreprise entrp){
-		
-		//faire appel du dao
-		
-			Entreprise entrprise= daoContact.createEntreprise(entrp);
-		
-		if(entrprise!=null){
-			return true;
-		}
-		return false;
-	}
 	public Address getAdd() {
 		// TODO Auto-generated method stub
 		
@@ -120,8 +116,8 @@ public boolean saveEntreprise(Entreprise entrp){
 			String street,String country,String zip, long numSiret,String phone) {
 		// TODO Auto-generated method stub
 		DAOContact searchConact=new DAOContact();
-		//return searchConact.searchContactBy(firstName,lastName,email,city,street,country,zip);
-		return searchConact.searchContactByEntreprise(firstName,lastName,email,city,street,country,zip,numSiret,phone);
+		return searchConact.searchContactBy(firstName,lastName,email,city,street,country,zip);
+		//return searchConact.searchContactByEntreprise(firstName,lastName,email,city,street,country,zip,numSiret,phone);
 	}
 	
 	
@@ -130,48 +126,46 @@ public boolean saveEntreprise(Entreprise entrp){
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public List<Contact> searchContactBy(String firstName, String lastName,
-			String email, String city, String street, String country, String zip) {
+	
+	/**
+	 * search contact by first last email
+	 */
+	public List<Contact> searchContactBy(String firstName,String lastName,String email,String city,
+			String street,String country,String zip) {
 		// TODO Auto-generated method stub
-		return null;
+		//DAOContact searchConact=new DAOContact();
+		return daoContact.searchContactBy(firstName,lastName,email,city,street,country,zip);
 	}
-	public boolean removeContacts(String[] idContacts) {
+
+	public boolean removeContacts(String idContact) {
 		// TODO Auto-generated method stub		
 		
-		for(String contactS: idContacts)
-		{
-			Long contactId = Long.parseLong(contactS);
-			System.out.println(contactId);
+
+			Long contactId = Long.parseLong(idContact);
+			//System.out.println(contactId);
 			if(daoContact.deleteContact(contactId))
 				return false;
 			
-		}
-		
 		return true;
 	}
 	public  Contact loadContact(Long idContact)
 	{
 		
-		return  daoContact.findContactById(idContact);	
-
-		
-	}
-	public  Entreprise loadEntreprise(Long idEntreprise) {
-		// TODO Auto-generated method stub
-		return  daoContact.loadEntreprise(idEntreprise);
+		return  daoContact.loadContact(idContact);	
 
 		
 	}
 	
-	public  Address getAddressOfContact(Contact contact)
-	{
-		return null;
-	}
 
 	public void updateContact(HashMap<String, String> attributes) {
 		// TODO Auto-generated method stub
 		
 		Long idContact = Long.parseLong(attributes.get("idContact"));	
+	/*	
+		Entreprise entreprise = daoContact.loadEntrepriseWithAll(idContact);
+		System.out.println("---------------------"+ entreprise.getAddress().getCountry());
+		PhoneNumber first =(PhoneNumber) entreprise.getPhoneNumber().toArray()[0];
+		System.out.println("---------------------"+ first.getPhoneNumber());*/
 		//chargement contact
 		
 
@@ -180,7 +174,7 @@ public boolean saveEntreprise(Entreprise entrp){
 		Address addressContact = daoAddress.getAddressContact(email);
 
 		addressContact.setAttributes(attributes);
-		daoAddress.updateAddress(addressContact);
+		//daoAddress.updateAddress(addressContact);**
 		
 		/*Mise à jour phoneNumbers*/
 		List<PhoneNumber>phones = (List<PhoneNumber>) daoPhoneNumber.getPhoneNumbers(email);
@@ -204,7 +198,7 @@ public boolean saveEntreprise(Entreprise entrp){
 					else{
 						//
 						phone.setPhoneNumber(phoneAtt.getValue());//PhoneKind impair
-						daoPhoneNumber.updateNumber(phone);
+						//daoPhoneNumber.updateNumber(phone); **
 						i++;//Numero Suivant
 					}
 					
@@ -217,19 +211,79 @@ public boolean saveEntreprise(Entreprise entrp){
 		}	
 		
 		/*Contact*/	
-		Contact contact = daoContact.loadContact(idContact);
+
+	/*	if(attributes.get("typeOfContact").compareTo("entreprise")==0)//cas entreprise
+		{
+			//System.out.println("je suis dans l'entreprise ");
+			Entreprise entreprise = daoContact.loadEntreprise(idContact);
+			daoContact.updateEntreprise(entreprise,attributes,addressContact,phones);
+		}
+		else{
+			Contact contact= daoContact.loadContact(idContact);
+			daoContact.updateContact(contact,attributes,addressContact,phones);
+		}*/
+	/*	
 		if(contact == null)//la session est expirée
 		{
 			contact = daoContact.findContactById(idContact);
 		}		
-
-		daoContact.updateContact(contact,attributes,addressContact,phones);
+*/
+		
 		
 	}
+	public void createContact(Contact contact) {
+		// TODO Auto-generated method stub
+		daoContact.createContact(contact);
+	}
+	public Contact loadContactW(Long idContact) {
+		// TODO Auto-generated method stub
+		Contact contact = daoContact.findContactById(idContact);
+		//daoContact.fetchInfo(contact);
+		return contact;
+	}
 	
+	public SortedMap<String, String> bindGroupe(HttpServletRequest request,
+			Contact contactCreated) {
 	
-	
-	
+		
+		Enumeration<String> parametersName= request.getParameterNames();
+		String parameterName= null;
+		HashMap<String, String>params=new HashMap<String, String>();
+		try {
+			while((parameterName=parametersName.nextElement())!=null){
+				params.put(parameterName, request.getParameter(parameterName));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		TreeMap<String, String>valeur=new TreeMap<String, String>();
+		valeur.putAll(params);
+		SortedMap<String, String> group =new TreeMap<String, String>() ;
+		
+		group=valeur.subMap("groupes0", "groupesz");
+		
+		//saveContact(contactCreated);
+		
+		for(Map.Entry<String, String>groupAtt : group.entrySet())
+		{
+			Long id = Long.parseLong(groupAtt.getValue());
+
+			ContactGroup groupe = daoGroup.loadGroup(id);
+			
+		System.out.println("group------>"+groupe.getGroupName());
+			//bindContactGroupe(contactCreated, groupe);
+			contactCreated.addGroup(groupe);
+			//groupe.addContact(contactCreated);
+			
+		}
+		//	
+		
+		return group;
+	}
+	public List<Contact> getAllContact() {
+		// TODO Auto-generated method stub
+		return daoContact.getAllContact();
+	}
 	
 	
 }

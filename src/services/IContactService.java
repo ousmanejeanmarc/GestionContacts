@@ -5,6 +5,9 @@ package services;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.SortedMap;
+
+import javax.servlet.http.HttpServletRequest;
 
 import entities.Address;
 import entities.Contact;
@@ -15,9 +18,9 @@ import entities.PhoneNumber;
 public interface IContactService {
 
 	public Contact createContact(String firstName,String lastName,String email,Address idAddress);
-	public Entreprise createEntreprise(String firstName,String lastName,String email,Address idAddress,long numSiret);
+	
 	public  boolean saveContact(Contact contact);
-	public boolean saveEntreprise(Entreprise entrp);
+	
 	public void bindContactGroupe(Contact cont,ContactGroup groupCreated);
 	public Address getAdd();
 	public ArrayList<Contact>searchContact(String firstName);
@@ -30,10 +33,20 @@ public interface IContactService {
 			);
 	
 	public ArrayList<Contact>searchContact(String firstName,String lastName,String email,Address addr,PhoneNumber phone,ContactGroup group);
-	public boolean removeContacts(String[] idContacts);
+	public boolean removeContacts(String idContact);
 	public void updateContact(HashMap<String, String> attributes);
-	public Entreprise loadEntreprise(Long idContact);
+	
 	public Contact loadContact(Long idContact);
+	public void createContact(Contact contact1);
+	public Contact loadContactW(Long idContact);
+
+	
+	public List<Contact>getAllContact();
+	/**INTEGRATION OUSMANE**/
+	public SortedMap<String, String> bindGroupe(HttpServletRequest request,
+			Contact contactCreated);
+	
+	
 	
 	
 	

@@ -13,4 +13,15 @@ public interface IDAOContactGroup {
 
 	ContactGroup loadGroup(Long idGroup);
 	public List<ContactGroup> initialiseGroup();
+
+	void deleteGroup(Long idGroup);
+
+	public List<ContactGroup> showGroup();
+
+	void update(Long group,String groupName);
+
+	boolean removeContact(Contact contact, ContactGroup group);
+
+	void update(ContactGroup group);
+
 }

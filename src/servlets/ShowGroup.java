@@ -21,10 +21,10 @@ public class ShowGroup  extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//System.out.println("me voici "+req.getParameter("groupe"));
 		List<ContactGroup> groupes = groupeService.showGroup();
+		for(ContactGroup groupe:groupes)System.out.println("groupes show group  "+ groupe.getGroupName());
 		req.setAttribute("groupes", groupes);//les groupes 
-		RequestDispatcher rd=req.getRequestDispatcher("showGroup.jsp");
+		RequestDispatcher rd=req.getRequestDispatcher("ShowGroup.jsp");
 		rd.forward(req, resp);
 		
 	}

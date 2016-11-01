@@ -13,15 +13,16 @@ import entities.PhoneNumber;
 public interface IDAOContact {
 	
 	public Contact createContact(Contact contact);
-	public Entreprise createEntreprise(Entreprise entrp);	
-	//public void updateContact(Contact contact, HashMap<String, String> attributes, Address addressContact, List<PhoneNumber> phones);	
+	
 	public boolean deleteContact(Long contact);
-	public Entreprise loadEntreprise(Long idEntreprise);
+	
 	public Contact loadContact(Long idContact);
 	public Contact findContactById(Long idContact);
 	public void updateContact(Contact contact,
 			HashMap<String, String> attributes, Address addressContact,
 			List<PhoneNumber> phones);
-	
+	public List<Contact> searchContactBy(String firstName, String lastName,
+			String email, String city, String street, String country, String zip);
+	public  List<Contact> getAllContact();	
 
 }

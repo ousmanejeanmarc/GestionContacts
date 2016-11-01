@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import entities.Contact;
 import entities.Entreprise;
 import services.ContactService;
@@ -52,24 +55,20 @@ public class searcheContact extends HttpServlet {
 		String street=request.getParameter("street");
 		String country=request.getParameter("country");
 		String zip=request.getParameter("zip");
-		long numSiret = 0;
-		String phone=request.getParameter("phoneNumber");
-		
-		if (request.getParameter("numSiret")!=""){
-			numSiret=Long.parseLong(request.getParameter("numSiret"));
-		}
-				
 				
 		//recuperation du groupe
 		//String group = request.getParameter("group");
 		
 		IContactService contactService=new ContactService();
 		List<Contact> searchResut=new ArrayList<Contact>();
+		
+		
+		
 		//searchResut=contactService.searchContact(firstName);
 	
-		//searchResut= contactService.searchContact(firstName,lastName,email,city,street,country,zip,phoneNumber);
+		//searchResut= contactService.searchContact(firstName,lastName,email,city,street,country,zip,phone);
 	
-		searchResut = contactService.searchContactBy(firstName,lastName,email,city,street,country,zip,numSiret,phone);
+		searchResut = contactService.searchContactBy(firstName,lastName,email,city,street,country,zip);
 
 		RequestDispatcher rd=request.getRequestDispatcher("searchContact.jsp");
 		request.setAttribute("result", searchResut);

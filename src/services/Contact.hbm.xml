@@ -23,11 +23,15 @@
 	 </property>
 
 	 <!-- plusieurs contact peuvent avoir la même adresse -->
-	 <many-to-one name="address" column="address" class="Address" not-null="false" optimistic-lock="false"/>
+	 <many-to-one name="address" column="address" class="Address" not-null="false" optimistic-lock="false" cascade="all"/>
 	
 	<!-- un contact peut avoir plusieur phone-->
-	<set name="phoneNumber" inverse="true" >
-		<key column="idContact"/>
+	<set name="phoneNumbers" cascade="persist" inverse="true"
+	table="PHONENUMBER"   batch-size="10" lazy="true">
+		<key>
+			<column name="idContact" not-null="false"/>
+		</key>
+		
 		<one-to-many class="PhoneNumber"/>
 	</set>
 	 
@@ -35,7 +39,7 @@
     
     <!--un contact peut être dans plusieurs group -->
     
-    <set name="group" table="GROUPE" cascade="save-update,delete" lazy="true">
+    <set name="group" table="GROUPE" cascade="all" lazy="true">
     	<key column="idContact"/>
     	<many-to-many class="ContactGroup" column="idContactGroup"/>
     </set>

@@ -17,11 +17,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import domain.IDAOContact;
 import entities.Address;
 import entities.Contact;
 import entities.ContactGroup;
 import entities.Entreprise;
-
+import entities.GROUPNAME;
+import entities.PHONEKIND;
 import entities.PhoneNumber;
 import services.AddressService;
 import services.ContactGroupService;
@@ -61,9 +65,18 @@ public class newContact extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		//ClassPathXmlApplicationContext context=new ClassPathXmlApplicationContext(new String[]{"applicationContext.xml"}) ;
+		 //IContactService contactService=(IContactService) context.getBean("beanContactService");
+		IContactService contactService=new ContactService();
 		String message=null;
 		HashMap<String, String>phoneNumbers=new HashMap<String, String>(); //<phoneKind,phoneNumber>
 		ArrayList<ContactGroup>listgroup=new ArrayList<ContactGroup>();
+		
+		//IContactService contactService=new ContactService();
+		IAddressService addresseService=new AddressService();
+		IPhoneNumberService phoneService=new PhoneNumberService();
+		IContactGroupService groupService = new ContactGroupService();
+		
 		//choix de creation
 		String type=request.getParameter("type");
 		
@@ -78,85 +91,50 @@ public class newContact extends HttpServlet {
 		String zip=request.getParameter("zip");
 		String country=request.getParameter("country");
 		
+		String newgrp=request.getParameter("newGroup");
 		
+
 		
-		//Phone 
-		String phoneKind=request.getParameter("phoneKind");
-		String phoneNumber=request.getParameter("phoneNumber");
-		//phoneNumbers=recupPhoneNumber(request);
+		//phone
+		phoneNumbers=recupPhoneNumber(request);
 		
 		//recuperation du groupe
-		String group = request.getParameter("newGroup");
-		//listgroup=recuGroup(request);
+		 
+		//ajout du groupe
+	    ContactGroup GroupCreated=null;
+	    String groupName=request.getParameter("newGroup");
+	    
+	    
+	    if(groupName!=""){
+	    	//ajout du groupe
+		    GroupCreated = groupService.createContactGroup(groupName);
+
+	    }
+	    if(firstName!="" & lastName!="" && email!=""){
+				
+		//ajout d'une adress d'un contact
+		Address address= addresseService.createAddressContact(street, city, zip, country);	
+					       
+		//ajout du contact
+		Contact contactCreated=null;
+		Entreprise entrepriseCreated=null;
+		SortedMap<String, String>lesGroup;
 		
-		//petite verification
-		if(firstName!="" & lastName!=" " && email!=" ") {
-				
-				IContactService contactService=new ContactService();
-				IAddressService addresseService=new AddressService();
-				IPhoneNumberService phoneService=new PhoneNumberService();
-				IContactGroupService groupService = new ContactGroupService();
-				
-				
-				//ajout d'une adress d'un contact
-				Address address= addresseService.createAddressContact(street, city, zip, country);	
-				
-				//ajout du groupe
-			    ContactGroup GroupCreated = groupService.createContactGroup(group);
-			       
-			    //ajout du contact
-			    Contact contactCreated=null;
-			    Entreprise entrepriseCreated=null;
-			    
-			    
-			    
-			    
-			    if(type.equals("Contact")){
-			    	
-					contactCreated= contactService.createContact(firstName, lastName, email,address);
-					contactService.bindContactGroupe(contactCreated, GroupCreated);
-					bindContactGroupe(request,contactCreated);
-					contactService.saveContact(contactCreated);
-					Boolean PhoneNumberCreated= phoneService.creatContactPhoneNumber(phoneNumbers,contactCreated);
-				}else if(type.equals("Entreprise")){
-			    //ajout d'une entreprise
-				
-					//numero siret de l'entreprise7
-					long numSiret=Long.parseLong(request.getParameter("numSiret"));
-					entrepriseCreated= contactService.createEntreprise(firstName, lastName, email,address,numSiret);
-					contactService.bindContactGroupe(entrepriseCreated, GroupCreated);
-					bindContactGroupe(request,entrepriseCreated);
-					contactService.saveEntreprise(entrepriseCreated);
-					  Boolean PhoneNumberCreated= phoneService.creatContactPhoneNumber(phoneNumbers,entrepriseCreated);
-				}
-			    
-				//sauvegarde en base des contacts et groupe
-			    //groupService.save(listgroup);
-			    //groupService.save(GroupCreated);
-				
-				
-				
-			    //ajout du phone number
-			    //PhoneNumber PhoneNumber= phoneService.creatContactPhoneNumber(phoneKind, phoneNumber,contactCreated);
-			   // Boolean PhoneNumberCreated= phoneService.creatContactPhoneNumber(phoneNumbers,entrepriseCreated);
-			   
-			    
-			    
-			    
-			    
-			    
-			    RequestDispatcher rd=request.getRequestDispatcher("accueil.jsp");
-				rd.forward(request, response);
-			  
-				
-		}else {
-			message="Les champs ne doivent pas être vides";
-			request.setAttribute("Message", message);
-			RequestDispatcher rd=request.getRequestDispatcher("addContact.jsp");
+		
+			contactCreated= contactService.createContact(firstName, lastName, email,address);
+			if(groupName!=""){
+				contactService.bindContactGroupe(contactCreated, GroupCreated);
+			}
+			lesGroup=contactService.bindGroupe(request,contactCreated);	
+			contactService.saveContact(contactCreated);
+			Boolean PhoneNumberCreated= phoneService.creatContactPhoneNumber(phoneNumbers,contactCreated);
+
+			RequestDispatcher rd=request.getRequestDispatcher("accueil.jsp");
 			rd.forward(request, response);
-		}
-		
-				
+	    }else {
+	    	RequestDispatcher rd=request.getRequestDispatcher("addContact.jsp");
+			rd.forward(request, response);
+	    }
 	}
 	/**
 	 * recuperation de tous les phone number
@@ -164,7 +142,7 @@ public class newContact extends HttpServlet {
 	 * @param response
 	 * @return
 	 */
-	/*public HashMap<String, String> recupPhoneNumber(HttpServletRequest request){
+	public HashMap<String, String> recupPhoneNumber(HttpServletRequest request){
 		
 		String mobile,maison,bureaux,autre;
 		HashMap<String, String>list=new HashMap<String, String>();
@@ -186,68 +164,9 @@ public class newContact extends HttpServlet {
 			list.put(PHONEKIND.AUTRE.toString(), autre);
 		}
 		return list;
-	}*/
-	
-	/**
-	 * recuperation de tous les phone number
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	/*public ArrayList<ContactGroup> recuGroup(HttpServletRequest request){
-		
-		
-		ArrayList<ContactGroup>list=new ArrayList<ContactGroup>();
-		ContactGroup ctgrp;
-		
-		if(request.getParameter("gamis")!=null){
-		
-			String value= request.getParameter("gamis"); 
-			String id = request.getParameter(value);
-			Long idGroup = Long.parseLong(id);
-			ContactGroupService serviceG = new ContactGroupService();
-			ContactGroup groupe = serviceG.loadGroup(idGroup);
-			
-			ctgrp=new ContactGroup();
-			ctgrp.setGroupName(GROUPNAME.Amis.toString());
-			
-			list.add(ctgrp);
-		}
-		if(request.getParameter("gfamille")!=null){
-			ctgrp=new ContactGroup();
-			ctgrp.setGroupName(GROUPNAME.Famille.toString());
-			
-			list.add(ctgrp);
-			
-		}
-		if(request.getParameter("gcollegue")!=null){
-			
-			ctgrp=new ContactGroup();
-			ctgrp.setGroupName(GROUPNAME.Collegue.toString());
-			
-			list.add(ctgrp);
-		}
-		
-		return list;
-	}*/
-	
-	public void bindContactGroupe(HttpServletRequest request, Contact contactCreated ){
-		
-		
-		Enumeration<String> parametersName= request.getParameterNames();
-		String parameterName= null;
-		HashMap<String, String>params=new HashMap<String, String>();
-		try {
-			while((parameterName=parametersName.nextElement())!=null){
-				params.put(parameterName, request.getParameter(parameterName));
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		TreeMap<String, String>valeur=new TreeMap<String, String>();
-		valeur.putAll(params);
-		SortedMap<String, String> group =valeur.subMap("groupes0", "groupesz");
-
 	}
+	
+	
+	
+	
 }

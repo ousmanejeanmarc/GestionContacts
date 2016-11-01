@@ -17,9 +17,6 @@
 	 </property>
 	 	
 	<many-to-one name="contact" class="Contact" column="idContact" />
-	
-	
-	
 
    </class>
   </hibernate-mapping>
