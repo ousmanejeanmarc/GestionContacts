@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+<bean id="BeanContact" class="domain.DAOContact" scope="prototype"/>
+<bean id ="BeanAddress" class="domain.DAOAdress" scope="prototype"/>
+ <bean id ="BeanGroup" class="domain.DAOContactGroup" scope="prototype"/>
+<bean id ="BeanPhone" class="domain.DAOPhoneNumber" scope="prototype"/> 
+
+
+<bean id="BeanContactService" class="services.ContactService" scope="prototype">
+	<property name="daoContact"><ref bean="BeanContact"/></property>
+	<property name="daoAddress"><ref bean="BeanAddress"/></property>
+</bean>
+ 
+  
+<!-- Application Context Provider -->  
+ <bean id="contextApplicationContextProvider" class="applicationCtx.ApplicationContextProvider"></bean>  
+
+</beans>
