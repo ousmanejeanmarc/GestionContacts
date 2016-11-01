@@ -2,6 +2,7 @@ package services;
 
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.SortedMap;
 
@@ -27,6 +28,7 @@ public interface IEntrepriseService {
 			Entreprise contactCreated);
 	public List<Entreprise> searchEntrepriseBy(String numSiret,String firstName,String lastName,String email,
 			String city,String street, String country,String zip);
+	public void updateEntreprise(HashMap<String, String> attributes);
 	
 
 	

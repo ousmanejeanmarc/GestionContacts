@@ -76,27 +76,11 @@ public class DAOEntreprise implements IDAOEntreprise {
 		return entreprise;
 	}
 
-  public void updateEntreprise(Entreprise entreprise,
-			HashMap<String, String> attributes, Address addressContact,
-			List<PhoneNumber> phones) {
-		// TODO Auto-generated method stub
-		//updateContact((Contact)entreprise, attributes, addressContact, phones);
-		
+  public void updateEntreprise(Entreprise entreprise) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		
-		entreprise.setEmail(attributes.get("email"));
-		entreprise.setFirstName(attributes.get("firstName"));
-		entreprise.setLastName(attributes.get("lastName"));
-		//Mise à jour pour maintenance bidirectionnelle
-		entreprise.setAddress(addressContact);		
-		entreprise.setPhoneNumbers(new HashSet<PhoneNumber>(phones));	
-		
-		Long numSiret = Long.parseLong(attributes.get("numSiret"));
-		entreprise.setNumSiret(numSiret);
-		
-		session.saveOrUpdate(entreprise);
-		transaction.commit();		
+		Transaction transaction = session.beginTransaction();	
+		session.update(entreprise);
+		transaction.commit();	
 	}
   /*
 	public Entreprise loadEntrepriseWithAll(Long idEntreprise)

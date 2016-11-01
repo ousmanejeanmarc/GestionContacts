@@ -18,9 +18,7 @@ public interface IDAOContact {
 	
 	public Contact loadContact(Long idContact);
 	public Contact findContactById(Long idContact);
-	public void updateContact(Contact contact,
-			HashMap<String, String> attributes, Address addressContact,
-			List<PhoneNumber> phones);
+	public void updateContact(Contact contact);
 	public List<Contact> searchContactBy(String firstName, String lastName,
 			String email, String city, String street, String country, String zip);
 	public  List<Contact> getAllContact();	

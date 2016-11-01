@@ -15,9 +15,7 @@ public interface IDAOEntreprise {
 	Entreprise loadEntreprise(Long idEntreprise);
 	Entreprise createEntreprise(Entreprise entrp);
 	Entreprise findEntrepriseById(Long entrepriseId);
-	public void updateEntreprise(Entreprise entreprise,
-			HashMap<String, String> attributes, Address addressContact,
-			List<PhoneNumber> phones);
+	public void updateEntreprise(Entreprise entreprise);
 	List<Entreprise> searchEntrepriseBy(String numSiret, String firstName, String lastName,
 			String email, String city, String street, String country, String zip);
 

@@ -38,7 +38,7 @@ public interface IContactService {
 	
 	public Contact loadContact(Long idContact);
 	public void createContact(Contact contact1);
-	public Contact loadContactW(Long idContact);
+	public  void  updateElements(Contact contact,HashMap<String, String> attributes);
 
 	
 	public List<Contact>getAllContact();

@@ -10,18 +10,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="services.ContactService"%>
 <%
-	/*Pour savoir si c'est une entreprise ou  un simple contact placé le input  de type hidden  et comme name l'idContact
-	et value "entreprise" "contact" pour entreprise ou contact*/
 
-	    String isEntreprise = (String)request.getAttribute("isEntreprise");
+
 
 
 		String pageResponse = "<html><head><title>Mise à jour Contact</title></head><body>";
-		pageResponse += "<form method='post' action='UpdateContact'>";
-		pageResponse +="<fieldset><legend>Modifier les inforations du Contact</legend>";
+		pageResponse += "<form method='post' action='UpdateEntreprise'>";
+		pageResponse +="<fieldset><legend>Modifier les inforations de l'entreprise</legend>";
 		pageResponse += "<table>";
 		Entreprise entreprise = null;
-		Contact contact = null;
 		
 		Address address = (Address)request.getAttribute("address");
 		String city = (address==null)?"":address.getCity();
@@ -31,13 +28,13 @@
 		
 		List<PhoneNumber> phones =(List<PhoneNumber>) request.getAttribute("phones");
 
-		contact = (Contact)request.getAttribute("contact");
+		entreprise = (Entreprise)request.getAttribute("entreprise");
 	
 		pageResponse += "<tr align='center'><td align='right'><i>FirstName:</td> ";
-		pageResponse += "<input type='hidden' name ='idContact' value='"+contact.getId()+"'/>";
-		pageResponse += "<td><input type='text' name='firstName' value='"+contact.getFirstName()+"' size ='50'> </i></td></tr>";
-		pageResponse += "<tr><td align='right'><i>LastName:</td><td><input type='text' name='lastName' value='"+contact.getLastName()+"' size ='50'> </i></td></tr>";
-		pageResponse += "<tr><td align='right'><i>Email:</td><td><input type='text' name='email' value='"+contact.getEmail()+"' size ='50'> </i></td></tr>";
+		pageResponse += "<input type='hidden' name ='idEntreprise' value='"+entreprise.getId()+"'/>";
+		pageResponse += "<td><input type='text' name='firstName' value='"+entreprise.getNumSiret()+"' size ='50'> </i></td></tr>";
+		pageResponse += "<td><input type='text' name='firstName' value='"+entreprise.getFirstName()+"' size ='50'> </i></td></tr>";
+		pageResponse += "<tr><td align='right'><i>Email:</td><td><input type='text' name='email' value='"+entreprise.getEmail()+"' size ='50'> </i></td></tr>";
 
 		pageResponse += "<tr><td align='right'><i>City:</td><td><input type='text' name='city' value='"+city+"' size ='50'> </i></td></tr>";
 		pageResponse +="<tr><td align='right'><i>street:</td><td><input type='text' name='street' value='"+ street+"' size ='50'> </i></td></tr>";

@@ -156,78 +156,59 @@ private IDAOAddress daoAddress = new DAOAdress();
 		
 	}
 	
-
-	public void updateContact(HashMap<String, String> attributes) {
-		// TODO Auto-generated method stub
+	
+	public  void  updateElements(Contact contact,HashMap<String, String> attributes)
+	{
 		
-		Long idContact = Long.parseLong(attributes.get("idContact"));	
-	/*	
-		Entreprise entreprise = daoContact.loadEntrepriseWithAll(idContact);
-		System.out.println("---------------------"+ entreprise.getAddress().getCountry());
-		PhoneNumber first =(PhoneNumber) entreprise.getPhoneNumber().toArray()[0];
-		System.out.println("---------------------"+ first.getPhoneNumber());*/
-		//chargement contact
 		
-
-		String email = attributes.get("email");
-		/* Mise à jour de l'addresse*/	
-		Address addressContact = daoAddress.getAddressContact(email);
-
+		
+		Address addressContact = daoAddress.getAddressContact(contact.getEmail());
 		addressContact.setAttributes(attributes);
-		//daoAddress.updateAddress(addressContact);**
+		daoAddress.updateAddress(addressContact);
+		
+		String email = attributes.get("email");
+
 		
 		/*Mise à jour phoneNumbers*/
 		List<PhoneNumber>phones = (List<PhoneNumber>) daoPhoneNumber.getPhoneNumbers(email);
 		
 		TreeMap<String,String>attributesSorted = new TreeMap<String, String>();
 		attributesSorted.putAll(attributes);
+		
 		SortedMap<String, String> phonesAttrs = attributesSorted.subMap("phone0", "phonez");
 		
-		System.out.println("les phones "+phonesAttrs);
 		/*parcours betes du tableau*/
-		int i=0 ,j = 0;
+		//int i=0 ,j = 0;
 		PhoneNumber phone = null ;
+		int i = 0;
 		
 		for(Map.Entry<String, String>phoneAtt : phonesAttrs.entrySet())
 		{
-			try {
-					phone=(PhoneNumber) phones.get(i);
-					if(j%2 == 0){
-						 phone.setPhoneKind(phoneAtt.getValue());//PhoneKind pair
-					}
-					else{
-						//
-						phone.setPhoneNumber(phoneAtt.getValue());//PhoneKind impair
-						//daoPhoneNumber.updateNumber(phone); **
-						i++;//Numero Suivant
-					}
-					
-				
-			}
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-			j++;
+			
+			phone = phones.get(i);
+			phone.setPhoneNumber(phoneAtt.getValue());
+			phone.setPhoneKind(attributes.get(phoneAtt.getValue()));
+			daoPhoneNumber.updateNumber(phone);
+			i++;
 		}	
 		
-		/*Contact*/	
+	}
 
-	/*	if(attributes.get("typeOfContact").compareTo("entreprise")==0)//cas entreprise
-		{
-			//System.out.println("je suis dans l'entreprise ");
-			Entreprise entreprise = daoContact.loadEntreprise(idContact);
-			daoContact.updateEntreprise(entreprise,attributes,addressContact,phones);
-		}
-		else{
-			Contact contact= daoContact.loadContact(idContact);
-			daoContact.updateContact(contact,attributes,addressContact,phones);
-		}*/
-	/*	
-		if(contact == null)//la session est expirée
-		{
-			contact = daoContact.findContactById(idContact);
-		}		
-*/
+	public void updateContact(HashMap<String, String> attributes) {
+		// TODO Auto-generated method stub
+		
+		Long idContact = Long.parseLong(attributes.get("idContact"));	
+
+		
+		//chargement du contact
+		Contact contact = daoContact.loadContact(idContact);
+			
+		//Mise à jour  du graphe
+		this.updateElements(contact, attributes);
+		
+		/*save Contact*/	
+		contact.setAttributes(attributes);
+		daoContact.updateContact(contact);
 		
 		
 	}

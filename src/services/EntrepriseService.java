@@ -11,10 +11,12 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 
 import domain.DAOAdress;
+import domain.DAOContact;
 import domain.DAOContactGroup;
 import domain.DAOEntreprise;
 import domain.DAOPhoneNumber;
 import domain.IDAOAddress;
+import domain.IDAOContact;
 import domain.IDAOContactGroup;
 import domain.IDAOEntreprise;
 import domain.IDAOPhoneNumber;
@@ -30,6 +32,7 @@ public class EntrepriseService  implements IEntrepriseService{
  	private IDAOPhoneNumber daoPhoneNumber = new DAOPhoneNumber();
     private  IDAOEntreprise daoEntreprise=new DAOEntreprise();	
     private IDAOContactGroup daoGroup = new DAOContactGroup();
+    private IContactService contactService = new ContactService();
 
 	 /**
 	 * 
@@ -130,6 +133,23 @@ public class EntrepriseService  implements IEntrepriseService{
 			return daoEntreprise.searchEntrepriseBy(numSiret, firstName,lastName,email,city,street,country,zip);
 	
 
+	}
+
+	public void updateEntreprise(HashMap<String, String> attributes) {
+		// TODO Auto-generated method stub
+		
+	Long idEntreprise = Long.parseLong(attributes.get("idEntreprise"));	
+
+		
+		//chargement 
+		Entreprise entreprise = daoEntreprise.loadEntreprise(idEntreprise);
+		//traitement graphe
+		contactService.updateElements(entreprise, attributes);
+		//Mise à jour
+		entreprise.setNumSiret(Long.parseLong(attributes.get("numSiret")));
+		entreprise.setAttributes(attributes);
+		daoEntreprise.updateEntreprise(entreprise);
+		
 	}
 	
 

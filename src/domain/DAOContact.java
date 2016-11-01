@@ -272,17 +272,10 @@ public class DAOContact implements IDAOContact{
 		return result;
 	}
 	
-	public void updateContact(Contact contact, HashMap<String, String> attributes, Address addressContact, List<PhoneNumber> phones) {
+	public void updateContact(Contact contact) {
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		Transaction transaction = session.beginTransaction();
-		
-		contact.setEmail(attributes.get("email"));
-		contact.setFirstName(attributes.get("firstName"));
-		contact.setLastName(attributes.get("lastName"));
-		//Mise à jour pour maintenance bidirectionnelle
-		contact.setAddress(addressContact);		
-		contact.setPhoneNumbers(new HashSet<PhoneNumber>(phones));		
+		Transaction transaction = session.beginTransaction();	
 		session.update(contact);
 		transaction.commit();
 

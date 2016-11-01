@@ -26,17 +26,20 @@ import entities.Entreprise;
 import entities.PhoneNumber;
 import services.AddressService;
 import services.ContactService;
+import services.EntrepriseService;
 import services.IAddressService;
 import services.IContactService;
+import services.IEntrepriseService;
 import services.IPhoneNumberService;
 import services.PhoneNumberService;
 
-public class UpdateContact extends HttpServlet {
+public class UpdateEntreprise extends HttpServlet {
 	
 	
 //	 ApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"applicationContext.xml"});
 	
 	IContactService contactService = new ContactService();
+	IEntrepriseService entrepriseService = new EntrepriseService();
 	IAddressService addressService = new AddressService();
 	IPhoneNumberService phoneService = new PhoneNumberService();
 
@@ -46,7 +49,7 @@ public class UpdateContact extends HttpServlet {
 		// TODO Auto-generated method stub	
 
 		//reception traitement servelet
-		if(request.getParameter("idContact")!=null)
+		if(request.getParameter("idEntreprise")!=null)
 		{
 		
 			Enumeration <String> parametersName = request.getParameterNames();
@@ -62,34 +65,31 @@ public class UpdateContact extends HttpServlet {
 			} 
 			catch (Exception e){}	
 			
-			contactService.updateContact(attributes);
+			entrepriseService.updateEntreprise(attributes);
 		}
 		else
 		{			
 			//delegation vers la servelet de traitement			
 			//le type hidden aura été mis aussi pour le type de contact
 			
-			Long idContact = Long.parseLong(request.getParameter("id"));
-			Entreprise entreprise = null;
-			Contact contact = null;			
+			Long idEntreprise = Long.parseLong(request.getParameter("id"));
+			Entreprise entreprise = null;		
 			Address address = null;
 			List<PhoneNumber>phones = null;
 
-			contact = contactService.loadContact(idContact);
-			request.setAttribute("contact", contact);
+			entreprise = entrepriseService.loadEntreprise(idEntreprise);
+			request.setAttribute("entreprise", entreprise);
 			
-			address = addressService.getAddressContact(contact);
+			address = addressService.getAddressContact((Contact)entreprise);
 		/*	address =contact.getAddress();
 			System.out.println("le ontacte est simplement   "+address.getStreet());*/
 				//Phone Numbers
-				phones = phoneService.getPhoneNumbers(contact.getEmail());
+			phones = phoneService.getPhoneNumbers(entreprise.getEmail());
 
-			for(PhoneNumber phone: phones)
-					System.out.println("-------------------------"+phone.getPhoneKind());
 			
 			request.setAttribute("phones", phones);
 			request.setAttribute("address", address);		
-			RequestDispatcher rd=request.getRequestDispatcher("readyToUpdate.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("readyToUpdateEntreprise.jsp");
 			rd.forward(request, response);	
 			
 		}

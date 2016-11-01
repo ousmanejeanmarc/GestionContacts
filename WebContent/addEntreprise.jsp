@@ -17,8 +17,7 @@
 				<fieldset>
 						<legend>Informations personnelles</legend>
 							<i> Numéro Siret: &nbsp;&nbsp; <input type="long" name="numSiret" size="25"></i><br/>
-							<i>FirstName: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="firstName" size="25"> </i><br/>	
-							<i>LastName: <input type="text" name="lastName" size="25"> </i><br/>
+							<i>Name: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="firstName" size="25"> </i><br/>	
 							<i>Email: <input type="text" name="email" size="25"> </i>		
 				</fieldset>
 			</td>
@@ -38,19 +37,11 @@
 			<td><fieldset>
 				<legend>PhoneNumber</legend>
 
-					<label><input type="checkbox" id="cboxmobile" name="phoneKindMobile" value="phoneKindMobile">Mobile</label>
-					<input type="text" name="phoneNumberMobile" size="25" maxlength="15"> 
-					<br>
-					<label><input type="checkbox" id="cboxbureaux" name="phoneKindBureaux" value="phoneKindBureaux">Bureaux</label>
+					<label><input type="checkbox" id="cboxbureaux" name="phoneKindBureaux" value="phoneKindBureaux">Bureau Phone</label>
 					<input type="text" name="phoneNumberBureaux" size="25" maxlength="15"> 
 					<br>
-					<label><input type="checkbox" id="cboxmaison" name="phoneKindMaison" value="phoneKindMaison">Maison</label>
-						<input type="text" name="phoneNumberMaison" size="25" maxlength="15"> 
-					<br>
-					<label><input type="checkbox" id="cboxPhoneautre" name="phoneKindautre" value="phoneKindautre">Autre</label>
-						<input type="text" name="phoneNumberAutre" size="25" maxlength="15"> 
-					<br>
-					
+					<label><input type="checkbox" id="cboxmaison" name="phoneKindMaison" value="phoneKindMaison">Other One</label>
+						<input type="text" name="phoneNumberMaison" size="25" maxlength="15"> 					
 			</fieldset></td>
 			<td>
 				<fieldset>

@@ -1,5 +1,6 @@
 package entities;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -67,6 +68,14 @@ public class Contact {
 		// TODO Auto-generated method stub
 		this.group.add(grp);
 		
+	}
+
+	public void setAttributes(HashMap<String, String> attributes) {
+		// TODO Auto-generated method stub
+		this.firstName = attributes.get("firstName");
+		this.lastName = attributes.get("lastName");
+		this.email = attributes.get("email");	
+
 	}
 
 }
